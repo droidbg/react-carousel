@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-import { useMemo } from "react";
-
 const Card = (props: { title: string; category: string; gradient: any }) => {
   const { title, category, gradient } = props;
+
   return (
     <motion.div
       whileTap={{ scale: 0.9, rotate: 10 }}

@@ -1,0 +1,6 @@
+fileignoreconfig:
+  - filename: package-lock.json
+    ignore_detectors: [filecontent]
+allowed_patterns:
+  - key
+  - Key

@@ -1,0 +1,7 @@
+.eslintrc
+.gitignore
+src/
+node_modules/
+tsconfig.json
+/src
+/.parcel-cache

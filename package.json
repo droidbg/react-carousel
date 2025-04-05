@@ -1,10 +1,13 @@
 {
   "name": "react-carousal",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Provides an image carousel React UI component.",
   "files": [
     "dist"
   ],
+  "source": "./src/index.ts",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:droidbg/react-carousel.git"

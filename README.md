@@ -30,14 +30,11 @@ import { CardSlider } from "react-card-slider";
     {
       title: "Science",
       category: "Subject",
-      gradient: "linear-gradient(to right, #ff6a00, #ee0979)",
     },
     {
       title: "History",
       category: "Subject",
-      gradient: "linear-gradient(to right, #6a11cb, #2575fc)",
     },
   ]}
-  linkTo="/papers"
 />;
 ```

@@ -28,8 +28,8 @@ import { CardSlider } from "react-carousel-latest";
 <CardSlider
   slides={[
     {
-      title: "Science",
-      category: "Subject",
+      title: "Inheritence",
+      category: "C++",
     },
     {
       title: "History",

@@ -9,7 +9,7 @@ const Card = (props: { title: string; category: string; gradient: any }) => {
       whileTap={{ scale: 0.9, rotate: 10 }}
       whileHover={{
         scale: 1.1,
-        boxShadow: "10px 8px 20px rgba(0, 0, 0, 0.6)",
+        boxShadow: "10px 8px 10px rgba(0, 0, 0, 0.6)",
       }}
       transition={{ type: "spring", stiffness: 200 }}
       className={`relative h-[180px] w-[350px] cursor-pointer overflow-hidden rounded-2xl p-5 shadow-lg`}

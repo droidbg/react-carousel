@@ -54,7 +54,7 @@ const CardSlider = ({
         {/* Slides Wrapper */}
         <div
           ref={sliderRef}
-          className="no-scrollbar flex h-full cursor-pointer gap-8 overflow-x-scroll scroll-smooth p-6 px-16"
+          className="no-scrollbar flex h-full cursor-pointer gap-8 overflow-x-scroll scroll-smooth p-6 pb-10 px-16 "
         >
           {slides.map((card, index) => (
             <div key={index}>

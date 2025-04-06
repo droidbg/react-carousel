@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Card from "./Card";
 
-import "./index.css";
+// import "./index.css";
 import { getBackground } from "./constants/gradient";
 
 type CardSliderProps = {

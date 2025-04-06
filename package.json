@@ -1,6 +1,6 @@
 {
-  "name": "react-carousal",
-  "version": "1.0.5",
+  "name": "react-carousel-latest",
+  "version": "1.0.0",
   "description": "Provides an image carousel React UI component.",
   "files": [
     "dist"

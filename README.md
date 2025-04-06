@@ -1,4 +1,4 @@
-# 🔄 React Card Slider
+# 🔄 React Carousel/ Card Slider
 
 A beautiful, customizable card slider/carousel component for React. Built with Tailwind CSS, Framer Motion, and Parcel for modern bundling.
 
@@ -17,13 +17,13 @@ A beautiful, customizable card slider/carousel component for React. Built with T
 ## 📦 Installation
 
 ```bash
-npm install react-carousal
+npm install react-carousel-latest
 ```
 
 ## Usage
 
 ```typescript
-import { CardSlider } from "react-card-slider";
+import { CardSlider } from "react-carousel-latest";
 
 <CardSlider
   slides={[

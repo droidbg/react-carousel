@@ -2,13 +2,19 @@ import { useRef } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Card from "./Card";
 
-import "./index.css";
+// import "./index.css";
 import { assignedGradients } from "./constants/gradient";
 
 const CardSlider = ({
   slides,
+  shape,
 }: {
-  slides: { title: string; category: string }[];
+  slides: {
+    title: string;
+    category: string;
+    description: string;
+  }[];
+  shape: string;
 }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -44,8 +50,7 @@ const CardSlider = ({
       <div className="relative flex h-full w-full">
         {/* Left Arrow */}
         <div
-          className="absolute top-25 left-10 z-15 cursor-pointer rounded-md border border-pink-400 text-5xl opacity-20 shadow-2xl shadow-pink-300 backdrop-blur-3xl hover:opacity-100  
-         "
+          className="absolute top-25 left-10 z-15 cursor-pointer rounded-md border border-pink-400 text-5xl opacity-20 shadow-2xl shadow-pink-300 backdrop-blur-3xl hover:opacity-100"
           onClick={prevSlide}
         >
           <FaAngleLeft />
@@ -62,6 +67,7 @@ const CardSlider = ({
                 key={card.title + index}
                 {...card}
                 gradient={assignedGradients[index % assignedGradients.length]}
+                shape={shape}
               />
             </div>
           ))}

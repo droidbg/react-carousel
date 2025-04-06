@@ -5,7 +5,7 @@
   "files": [
     "dist"
   ],
-  "source": "./src/index.ts",
+  "source": "index.html",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": {

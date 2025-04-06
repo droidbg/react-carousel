@@ -3,18 +3,23 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Card from "./Card";
 
 // import "./index.css";
-import { assignedGradients } from "./constants/gradient";
+import { getBackground } from "./constants/gradient";
+
+type CardSliderProps = {
+  title: string;
+  category: string;
+  description: string;
+  link?: string;
+};
 
 const CardSlider = ({
   slides,
   shape,
+  randomBackground = false,
 }: {
-  slides: {
-    title: string;
-    category: string;
-    description: string;
-  }[];
+  slides: CardSliderProps[];
   shape: string;
+  randomBackground?: boolean;
 }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -36,6 +41,18 @@ const CardSlider = ({
         behavior: "smooth",
       });
     }
+  };
+  const renderCard = (card: any, index: any) => {
+    const assignedGradients = getBackground(randomBackground);
+    const cardProps = {
+      ...card,
+      gradient: assignedGradients[index % assignedGradients.length],
+      shape: shape,
+    };
+
+    const CardComponent = <Card key={card.title + index} {...cardProps} />;
+
+    return card.link ? <a href={card.link}>{CardComponent}</a> : CardComponent;
   };
 
   return (
@@ -62,14 +79,7 @@ const CardSlider = ({
           className="no-scrollbar flex h-full cursor-pointer gap-8 overflow-x-scroll scroll-smooth p-6 pb-10 px-16 "
         >
           {slides.map((card, index) => (
-            <div key={index}>
-              <Card
-                key={card.title + index}
-                {...card}
-                gradient={assignedGradients[index % assignedGradients.length]}
-                shape={shape}
-              />
-            </div>
+            <div key={index}>{renderCard(card, index)}</div>
           ))}
         </div>
 

@@ -18,4 +18,15 @@ const gradients = [
 function shuffleArray(array: any[]) {
   return array.sort(() => -0.5);
 }
-export const assignedGradients = shuffleArray([...gradients]);
+
+function randomShuffle(array: any[]) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+export function getBackground(randomBackground: boolean) {
+  if (randomBackground) {
+    return randomShuffle([...gradients]);
+  } else {
+    return shuffleArray([...gradients]);
+  }
+}

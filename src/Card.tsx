@@ -6,6 +6,7 @@ import { useMemo } from "react";
 const Card = (props: {
   title: string;
   category: string;
+
   gradient: any;
   description: string;
   shape: string;

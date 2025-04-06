@@ -1,4 +1,4 @@
-# 🔄 React Carousel/ Card Slider
+# 🔄 React Carousel / Card Slider with Animation and different backgrounds
 
 A beautiful, customizable card slider/carousel component for React. Built with Tailwind CSS, Framer Motion, and Parcel for modern bundling.
 
@@ -26,15 +26,34 @@ npm install react-carousel-latest
 import { CardSlider } from "react-carousel-latest";
 
 <CardSlider
+  shape="star" // Background icons
+  randomBackground={true} // Background color random or fixed
   slides={[
     {
-      title: "Inheritence",
-      category: "C++",
+      title: "Shooting Star",
+      category: "Astronomy",
+      description: "Catch the next meteor shower in style.",
+      link: "https://google.com", //Open Link on click of the button
     },
     {
-      title: "History",
-      category: "Subject",
+      title: "Star Chef",
+      category: "Food",
+      description: "A recipe that’s out of this world.",
+      // If no Link is provided Card is not clickable
+    },
+    {
+      title: "Rising Star",
+      category: "Entertainment",
+      description: "Meet the actor taking Hollywood by storm.",
+      link: githubLink,
     },
   ]}
 />;
+```
+
+### Background Icons Available
+
+```javascript
+// shapesAvaiable = "blob" | "heart" | "star" | "bear" | "music" | "trophy" | "ring";
+// By default blob shape is given.
 ```

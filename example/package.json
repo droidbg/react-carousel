@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "build:demo": "parcel build index.html --public-url ./"
+  },
+  "author": "Example",
+  "license": "MIT",
+  "description": "This is example",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.3",
+    "parcel": "^2.14.4",
+    "react": "19.x",
+    "react-dom": "19.x",
+    "tailwindcss": "^4.1.3"
+  }
+}

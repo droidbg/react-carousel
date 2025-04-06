@@ -7,3 +7,5 @@ tsconfig.json
 /.parcel-cache
 index.html
 App.tsx
+/example
+example/

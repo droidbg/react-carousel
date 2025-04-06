@@ -2,12 +2,12 @@
   "name": "react-carousel-latest",
   "version": "1.0.0",
   "description": "Provides an image carousel React UI component.",
+  "source": "src/index.tsx",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "source": "index.html",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:droidbg/react-carousel.git"
@@ -32,10 +32,11 @@
     "view"
   ],
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:lib": "rm -rf ./dist && parcel build index.tsx --no-source-maps",
+    "build": "npm run build:lib",
+    "prepublishOnly": "npm run build",
     "prepublish": "rm -rf ./dist && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/ test/"
   },
   "author": "Binni G.",

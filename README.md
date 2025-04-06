@@ -2,6 +2,13 @@
 
 A beautiful, customizable card slider/carousel component for React. Built with Tailwind CSS, Framer Motion, and Parcel for modern bundling.
 
+Demo: 
+
+
+https://github.com/user-attachments/assets/6dc9a263-d0f6-4569-a74b-0bfd14b99f74
+
+
+
 ---
 
 ## 🚀 Features

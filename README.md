@@ -1,11 +1,11 @@
-# 🔄 React Carousel / Card Slider with Animation and different backgrounds
+# 🔄 React Carousel / Card Slider Package with Animation and different backgrounds
 
 A beautiful, customizable card slider/carousel component for React. Built with Tailwind CSS, Framer Motion, and Parcel for modern bundling.
+Download [Carousel Package](https://www.npmjs.com/package/react-carousel-latest) from [Here](https://www.npmjs.com/package/react-carousel-latest). 
 
 Check out the [demo here](https://react-carousel-latest.vercel.app/). 
-
-
-https://github.com/user-attachments/assets/6dc9a263-d0f6-4569-a74b-0bfd14b99f74
+ 
+![react_carousal_demo](https://github.com/user-attachments/assets/ebfc661f-4d01-4721-804f-03806b94737c)
 
 
 

@@ -32,7 +32,8 @@
     "view"
   ],
   "scripts": {
-    "build": "parcel build index.ts --no-source-maps",
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "rm -rf ./dist && npm run build",
     "lint": "eslint src/ test/"

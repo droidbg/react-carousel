@@ -76,6 +76,24 @@ const Example = () => {
             description: "Meet the actor taking Hollywood by storm.",
             link: githubLink,
           },
+          {
+            title: "Shooting Star",
+            category: "Astronomy",
+            description: "Catch the next meteor shower in style.",
+            link: githubLink,
+          },
+          {
+            title: "Star Chef",
+            category: "Food",
+            description: "A recipe that’s out of this world.",
+            link: githubLink,
+          },
+          {
+            title: "Rising Star",
+            category: "Entertainment",
+            description: "Meet the actor taking Hollywood by storm.",
+            link: githubLink,
+          },
         ]}
       />
       <div className="btext-black p-2 text-xl font-bold">
@@ -86,6 +104,24 @@ const Example = () => {
         shape="heart"
         randomBackground={true}
         slides={[
+          {
+            title: "Eternal Love",
+            category: "Relationships",
+            description: "A story of passion that stands the test of time.",
+            link: githubLink,
+          },
+          {
+            title: "Self-Care Day",
+            category: "Wellness",
+            description: "Pamper yourself with these relaxing ideas.",
+            link: githubLink,
+          },
+          {
+            title: "Kindness Matters",
+            category: "Inspiration",
+            description: "Small acts that make a big difference.",
+            link: githubLink,
+          },
           {
             title: "Eternal Love",
             category: "Relationships",
@@ -133,6 +169,24 @@ const Example = () => {
             description: "Small acts that make a big difference.",
             link: githubLink,
           },
+          {
+            title: "Eternal Love",
+            category: "Relationships",
+            description: "A story of passion that stands the test of time.",
+            link: githubLink,
+          },
+          {
+            title: "Self-Care Day",
+            category: "Wellness",
+            description: "Pamper yourself with these relaxing ideas.",
+            link: githubLink,
+          },
+          {
+            title: "Kindness Matters",
+            category: "Inspiration",
+            description: "Small acts that make a big difference.",
+            link: githubLink,
+          },
         ]}
       />
 
@@ -144,6 +198,24 @@ const Example = () => {
         shape="ring"
         randomBackground={true}
         slides={[
+          {
+            title: "Commitment Code",
+            category: "Open Source",
+            description: "A repo dedicated to collaborative growth.",
+            link: githubLink,
+          },
+          {
+            title: "Unity Loop",
+            category: "Community",
+            description: "Bringing people together, one commit at a time.",
+            link: githubLink,
+          },
+          {
+            title: "Ring of Stars",
+            category: "Astronomy",
+            description: "Track constellations in this stellar project.",
+            link: githubLink,
+          },
           {
             title: "Commitment Code",
             category: "Open Source",

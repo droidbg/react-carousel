@@ -20,6 +20,7 @@
     "react",
     "carousal",
     "carousel",
+    "react-carousel",
     "react-carousal",
     "3d-carousal",
     "gallery",
@@ -29,7 +30,9 @@
     "swipe",
     "mobile-friendly",
     "react-component",
-    "view"
+    "view",
+    "javascript",
+    "typescript"
   ],
   "scripts": {
     "build:lib": "rm -rf ./dist && parcel build index.tsx --no-source-maps",

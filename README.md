@@ -23,7 +23,7 @@ npm install react-carousel-latest
 ## Usage
 
 ```typescript
-import { CardSlider } from "react-carousel-latest";
+import CardSlider from "react-carousel-latest";
 
 <CardSlider
   shape="star" // Background icons

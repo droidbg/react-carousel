@@ -1,4 +1,4 @@
-// import CardSlider from "../src/CardSlider";
+import CardSlider from "react-carousel-latest";
 
 const Example = () => {
   const githubLink = "https://github.com/droidbg/react-carousel";
@@ -12,7 +12,7 @@ const Example = () => {
         Trophy Icon in Background
       </div>
 
-      {/* <CardSlider
+      <CardSlider
         shape="trophy"
         slides={[
           {
@@ -48,13 +48,13 @@ const Example = () => {
               "Meet the individual making a difference in their local community.",
           },
         ]}
-      /> */}
+      />
 
       <div className="btext-black p-2 text-xl font-bold">
         Random Background Color + Star in Background
       </div>
 
-      {/* <CardSlider
+      <CardSlider
         shape="star"
         randomBackground={true}
         slides={[
@@ -77,12 +77,12 @@ const Example = () => {
             link: githubLink,
           },
         ]}
-      /> */}
+      />
       <div className="btext-black p-2 text-xl font-bold">
         Heart in Background
       </div>
 
-      {/* <CardSlider
+      <CardSlider
         shape="heart"
         randomBackground={true}
         slides={[
@@ -105,13 +105,13 @@ const Example = () => {
             link: githubLink,
           },
         ]}
-      /> */}
+      />
 
       <div className="btext-black p-2 text-xl font-bold">
         Bear in Background
       </div>
 
-      {/* <CardSlider
+      <CardSlider
         shape="bear"
         randomBackground={true}
         slides={[
@@ -134,13 +134,13 @@ const Example = () => {
             link: githubLink,
           },
         ]}
-      /> */}
+      />
 
       <div className="btext-black p-2 text-xl font-bold">
         Ring in Background
       </div>
 
-      {/* <CardSlider
+      <CardSlider
         shape="ring"
         randomBackground={true}
         slides={[
@@ -163,12 +163,12 @@ const Example = () => {
             link: githubLink,
           },
         ]}
-      /> */}
+      />
       <div className="btext-black p-2 text-xl font-bold">
         Ring in Background
       </div>
 
-      {/* <CardSlider
+      <CardSlider
         shape="music"
         slides={[
           {
@@ -190,7 +190,7 @@ const Example = () => {
             link: githubLink,
           },
         ]}
-      /> */}
+      />
     </div>
   );
 };

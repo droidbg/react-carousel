@@ -165,7 +165,7 @@ const Example = () => {
         ]}
       />
       <div className="btext-black p-2 text-xl font-bold">
-        Ring in Background
+        Music in Background
       </div>
 
       <CardSlider
@@ -181,6 +181,24 @@ const Example = () => {
             title: "Unity Loop",
             category: "Community",
             description: "Bringing people together, one commit at a time.",
+            link: githubLink,
+          },
+          {
+            title: "Ring of Stars",
+            category: "Astronomy",
+            description: "Track constellations in this stellar project.",
+            link: githubLink,
+          },
+          {
+            title: "Ring of Stars",
+            category: "Astronomy",
+            description: "Track constellations in this stellar project.",
+            link: githubLink,
+          },
+          {
+            title: "Ring of Stars",
+            category: "Astronomy",
+            description: "Track constellations in this stellar project.",
             link: githubLink,
           },
           {

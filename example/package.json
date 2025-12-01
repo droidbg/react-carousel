@@ -10,7 +10,7 @@
   "description": "This is example",
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.3",
-    "parcel": "^2.14.4",
+    "parcel": "^2.16.1",
     "tailwindcss": "^4.1.3",
     "typescript": "^5.8.3"
   },

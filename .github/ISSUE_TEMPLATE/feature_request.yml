@@ -1,0 +1,59 @@
+name: ✨ Feature request
+description: Suggest an idea or improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Tell us the problem first — it helps us find the best solution.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: What are you trying to do, and where does the current API get in the way?
+      placeholder: I want to fade between slides instead of sliding, but there's no transition option…
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: What would the API or behaviour look like? Sketch the props / usage if you can.
+      placeholder: |
+        <Carousel effect="fade"> … </Carousel>
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches, workarounds, or similar libraries you've looked at.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Carousel (compound components)
+        - useCarousel hook
+        - Presets (Card / Image / Slicer)
+        - Styling / theming
+        - TypeScript types
+        - Docs
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched [existing issues](https://github.com/droidbg/react-carousel/issues) and didn't find a duplicate.
+          required: true

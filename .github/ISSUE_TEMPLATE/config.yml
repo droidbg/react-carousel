@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Docs & live demo
+    url: https://react-carousel-latest.vercel.app/
+    about: Browse the documentation and interactive examples — your answer may be here.
+  - name: 📦 npm package
+    url: https://www.npmjs.com/package/react-carousel-latest
+    about: Versions, install instructions, and release info.

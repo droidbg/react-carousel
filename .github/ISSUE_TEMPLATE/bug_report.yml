@@ -1,0 +1,83 @@
+name: 🐞 Bug report
+description: Something isn't working as expected
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug! A small reproduction is the single most helpful thing you can add.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug — what you saw vs. what you expected.
+      placeholder: When I set `loop` on <Carousel>, the dots stop updating after the last slide…
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Steps, a code snippet, or (best) a link to a minimal StackBlitz / CodeSandbox.
+      placeholder: |
+        1. Render <Carousel slidesCount={3} loop>…
+        2. Click next three times
+        3. See …
+
+        Repro: https://stackblitz.com/edit/…
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part?
+      options:
+        - Carousel (compound components)
+        - useCarousel hook
+        - CardSlider preset
+        - ImageSlider preset
+        - SlicerSlider preset
+        - Styling / CSS
+        - TypeScript types
+        - Build / SSR / bundler
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: pkg-version
+    attributes:
+      label: react-carousel-latest version
+      placeholder: e.g. 2.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: react-version
+    attributes:
+      label: React version
+      placeholder: e.g. 19.1.0
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment (browser, bundler, OS)
+      placeholder: e.g. Chrome 125, Vite 5, macOS
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched [existing issues](https://github.com/droidbg/react-carousel/issues) and didn't find a duplicate.
+          required: true
+        - label: I imported the required stylesheet(s) (`styles.css`, and `presets.css` for presets).
+          required: false

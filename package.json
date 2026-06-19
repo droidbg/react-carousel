@@ -61,6 +61,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "prepublishOnly": "npm run build",
+    "release": "bash scripts/release.sh",
     "example": "npm --prefix example run dev"
   },
   "author": "Binni G.",

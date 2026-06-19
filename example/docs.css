@@ -188,6 +188,31 @@ pre {
   color: var(--ink);
 }
 
+/* topbar icon buttons (GitHub / npm / issue / theme) */
+.topbar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.topbar__icon:hover {
+  color: var(--ink);
+  background: var(--surface-2);
+  border-color: var(--ink-soft);
+  transform: translateY(-1px);
+}
+.topbar__icon:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;

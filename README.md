@@ -1,10 +1,29 @@
-# 🔄 react-carousel-latest
+<div align="center">
 
-A **headless, accessible, tree-shakeable** React carousel with a compound-component API — plus a backwards-compatible `CardSlider` preset for 1.x users.
+<img src="https://raw.githubusercontent.com/droidbg/react-carousel/main/.github/logo.svg" alt="react-carousel" width="480" />
 
-[Live docs & demo](https://react-carousel-latest.vercel.app/) · [npm](https://www.npmjs.com/package/react-carousel-latest)
+<p>
+  <a href="https://www.npmjs.com/package/react-carousel-latest"><img src="https://img.shields.io/npm/v/react-carousel-latest?color=ff6a3d&label=npm" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/react-carousel-latest"><img src="https://img.shields.io/npm/dm/react-carousel-latest?color=ff6a3d" alt="downloads" /></a>
+  <img src="https://img.shields.io/bundlephobia/minzip/react-carousel-latest?color=ff6a3d" alt="minzipped size" />
+  <img src="https://img.shields.io/npm/types/react-carousel-latest?color=ff6a3d" alt="types included" />
+  <img src="https://img.shields.io/npm/l/react-carousel-latest?color=ff6a3d" alt="license" />
+</p>
+
+<p><strong>A headless, accessible, tree-shakeable React carousel</strong> with a compound-component API — keyboard, swipe, autoplay &amp; ARIA built in, plus ready-made presets (card, image, slicer).</p>
+
+<p>
+  <a href="https://react-carousel-latest.vercel.app/"><b>Live docs &amp; demo</b></a> ·
+  <a href="https://www.npmjs.com/package/react-carousel-latest">npm</a> ·
+  <a href="https://github.com/droidbg/react-carousel/issues/new">Report a bug</a>
+</p>
+
+<img src="https://raw.githubusercontent.com/droidbg/react-carousel/main/.github/media/slicer.gif" alt="Slicer slider demo" width="720" />
+
+</div>
 
 ---
+
 
 ## ✨ Features
 

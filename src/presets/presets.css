@@ -1,13 +1,13 @@
 /*
- * Legacy 1.x preset styles (CardSlider + Card + Blobs).
+ * Preset slider styles (CardSlider + Card + Blobs, ImageSlider, SlicerSlider).
  *
- * Import alongside the base stylesheet when using the deprecated CardSlider:
- *   import "react-carousel-latest/legacy.css";
+ * Import alongside the base stylesheet:
+ *   import "react-carousel-latest/styles.css";
+ *   import "react-carousel-latest/presets.css";
  *
- * This reproduces the original look in framework-free CSS so existing
- * consumers no longer need Tailwind configured. Each card reads its palette
- * from the --rc-from / --rc-to custom properties set inline by <Card>, so a
- * single set of colours drives every design variant.
+ * Framework-free CSS — no Tailwind. Cards read their palette from the
+ * --rc-from / --rc-to custom properties set inline by <Card>, so a single set
+ * of colours drives every design variant.
  */
 
 .rc-cardslider {
@@ -257,3 +257,169 @@
   color: var(--rc-from);
   background: #f3f4f6;
 }
+
+/* ===================== ImageSlider preset ===================== */
+.rc-image {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  /* thin, chrome-free arrows over the photo */
+  --rc-button-bg: transparent;
+  --rc-button-bg-hover: rgba(255, 255, 255, 0.18);
+  --rc-button-color: #fff;
+  --rc-button-size: 3rem;
+}
+
+.rc-image .rc-button {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.55));
+}
+
+.rc-image__link {
+  display: block;
+  width: 100%;
+}
+
+.rc-image__slide {
+  position: relative;
+  width: 100%;
+  height: var(--rc-image-height, 460px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.rc-image__caption {
+  padding: 0 1rem;
+  color: #fff;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+
+.rc-image .rc-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.9rem;
+  margin: 0;
+  z-index: 3;
+}
+.rc-image .rc-dot {
+  background: rgba(255, 255, 255, 0.45);
+}
+.rc-image .rc-dot--active {
+  background: #fff;
+}
+
+/* ===================== SlicerSlider preset ===================== */
+.rc-slicer {
+  position: relative;
+  height: var(--rc-image-height, 460px);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  outline: none;
+  --rc-button-bg: transparent;
+  --rc-button-bg-hover: rgba(255, 255, 255, 0.18);
+  --rc-button-color: #fff;
+  --rc-button-size: 3rem;
+}
+.rc-slicer:focus-visible {
+  outline: 2px solid var(--rc-accent, #fff);
+  outline-offset: 2px;
+}
+
+.rc-slicer .rc-button {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.55));
+}
+
+.rc-slicer__viewport {
+  position: absolute;
+  inset: 0;
+  touch-action: pan-y;
+}
+
+.rc-slicer__slide {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.rc-slicer__slide[data-active] {
+  z-index: 1;
+}
+
+/*
+ * Each strip is one horizontal band of the image. The image is sized to the
+ * full slide box so every strip shares the same coordinates and the bands line
+ * up; background-position-y selects the band for strip k.
+ */
+.rc-slicer__strip {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(100% / var(--rc-slices, 6));
+  top: calc(var(--k) * 100% / var(--rc-slices, 6));
+  background-repeat: no-repeat;
+  background-size: 100% var(--rc-image-height, 460px);
+  background-position: 0 calc(var(--k) / (var(--rc-slices, 6) - 1) * 100%);
+  transform: translateX(-115%);
+  transition: transform 600ms cubic-bezier(0.7, 0, 0.3, 1);
+  transition-delay: calc(var(--k) * 70ms);
+  will-change: transform;
+}
+/* alternate strips enter from the opposite side for a woven wipe */
+.rc-slicer__strip:nth-child(even) {
+  transform: translateX(115%);
+}
+.rc-slicer__slide[data-active] .rc-slicer__strip {
+  transform: translateX(0);
+}
+
+.rc-slicer__caption {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  color: #fff;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+.rc-slicer__slide:not([data-active]) .rc-slicer__caption {
+  opacity: 0;
+}
+
+.rc-slicer .rc-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.9rem;
+  margin: 0;
+  z-index: 3;
+}
+.rc-slicer .rc-dot {
+  background: rgba(255, 255, 255, 0.45);
+}
+.rc-slicer .rc-dot--active {
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-slicer__strip {
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+  }
+}
+

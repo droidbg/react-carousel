@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import CardSlider, { Carousel, type CardVariant } from "../src";
-import Card from "../src/legacy/Card";
-import { palettes, type Palette } from "../src/legacy/gradient";
-import type { ShapeOption } from "../src/legacy/Blobs";
+import CardSlider, { Carousel, ImageSlider, SlicerSlider, type CardVariant } from "../src";
+import Card from "../src/presets/Card";
+import { palettes, type Palette } from "../src/presets/gradient";
+import type { ShapeOption } from "../src/presets/Blobs";
 // docs.css @imports the library stylesheets so everything lands in one bundle.
 import "./docs.css";
 
@@ -23,6 +23,14 @@ const cardSamples = [
   { title: "Lone Star", category: "Travel", description: "A road trip across the open plains." },
 ];
 
+const photoSlides = [
+  { src: new URL("./assets/01.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 1" },
+  { src: new URL("./assets/02.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 2" },
+  { src: new URL("./assets/03.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 3" },
+  { src: new URL("./assets/04.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 4" },
+  { src: new URL("./assets/05.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 5" },
+];
+
 type Design = { variant: CardVariant; title: string; desc: string; shape: ShapeOption };
 const designs: Design[] = [
   { variant: "gradient", title: "Gradient", desc: "The original — a full diagonal gradient with white type and floating blobs.", shape: "star" },
@@ -36,8 +44,8 @@ const designs: Design[] = [
 const NAV: { group: string; items: [string, string][] }[] = [
   { group: "Getting started", items: [["overview", "Overview"], ["install", "Installation"], ["quickstart", "Quick start"]] },
   { group: "Carousel", items: [["api", "Props"], ["controls", "Controls"], ["patterns", "Patterns"]] },
-  { group: "Cards", items: [["designs", "Card designs"], ["theming", "Theming"]] },
-  { group: "Compatibility", items: [["legacy", "Legacy CardSlider"], ["a11y", "Accessibility"]] },
+  { group: "Presets", items: [["designs", "Card designs"], ["image", "Image slider"], ["slicer", "Slicer slider"], ["cardslider", "CardSlider"]] },
+  { group: "More", items: [["customslides", "Custom slides"], ["theming", "Theming"], ["a11y", "Accessibility"]] },
 ];
 const ALL_IDS = NAV.flatMap((g) => g.items.map(([id]) => id));
 
@@ -100,9 +108,9 @@ export function HeroCarousel() {
 }`;
 
 const MULTICARD_CODE = `import { Carousel } from "react-carousel-latest";
-import { Card } from "react-carousel-latest/legacy";
+import { Card } from "react-carousel-latest/presets";
 import "react-carousel-latest/styles.css";
-import "react-carousel-latest/legacy.css";
+import "react-carousel-latest/presets.css";
 
 const cards = [
   { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower in style.", from: "#6A0572", to: "#AB83A1" },
@@ -132,8 +140,8 @@ export function CardCarousel() {
 }`;
 
 function cardCode(d: Design, p: Palette) {
-  return `import { Card, CardSlider } from "react-carousel-latest/legacy";
-import "react-carousel-latest/legacy.css";
+  return `import { Card, CardSlider } from "react-carousel-latest/presets";
+import "react-carousel-latest/presets.css";
 
 const slides = [
   { title: "${d.title}", category: "Preview", description: "Built from --rc-from / --rc-to." },
@@ -159,6 +167,35 @@ export function SliderExample() {
   return <CardSlider shape="${d.shape}" variant="${d.variant}" slides={slides} />;
 }`;
 }
+
+const IMAGE_CODE = `import { ImageSlider } from "react-carousel-latest/presets";
+import "react-carousel-latest/styles.css";
+import "react-carousel-latest/presets.css";
+
+const slides = [
+  { src: "/photos/01.jpg", alt: "Abstract waves", caption: "Slide 1" },
+  { src: "/photos/02.jpg", alt: "Abstract waves", caption: "Slide 2" },
+  { src: "/photos/03.jpg", alt: "Abstract waves", caption: "Slide 3" },
+];
+
+export function Hero() {
+  return <ImageSlider slides={slides} loop autoplay height={460} />;
+}`;
+
+const SLICER_CODE = `import { SlicerSlider } from "react-carousel-latest/presets";
+import "react-carousel-latest/styles.css";
+import "react-carousel-latest/presets.css";
+
+const slides = [
+  { src: "/photos/01.jpg", caption: "Slide 1" },
+  { src: "/photos/02.jpg", caption: "Slide 2" },
+  { src: "/photos/03.jpg", caption: "Slide 3" },
+];
+
+export function Hero() {
+  // slices = number of horizontal strips in the wipe transition
+  return <SlicerSlider slides={slides} loop autoplay slices={6} height={440} />;
+}`;
 
 /* ----------------------------- hooks ----------------------------- */
 
@@ -374,28 +411,8 @@ export default function Example() {
               </div>
             </div>
 
-            <Demo className="demo--pad-lg" style={{ marginTop: "2.5rem" }} code={HERO_CODE}>
-              <Carousel slidesCount={scenes.length} loop autoplay autoplayInterval={3800} label="Scenery"
-                style={{ borderRadius: 14, overflow: "hidden" }}>
-                <Carousel.Button dir="prev" />
-                <Carousel.Track>
-                  {scenes.map((s, i) => (
-                    <Carousel.Slide key={s.title} index={i}>
-                      <div style={{ height: 340, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2rem", color: "#fff", background: s.bg }}>
-                        <span style={{ fontFamily: "Fraunces, serif", fontSize: "2.4rem", fontWeight: 500 }}>{s.title}</span>
-                        <span style={{ opacity: 0.92 }}>{s.sub}</span>
-                      </div>
-                    </Carousel.Slide>
-                  ))}
-                </Carousel.Track>
-                <Carousel.Button dir="next" />
-                <div className="rc-controls">
-                  <Carousel.Button dir="first" />
-                  <Carousel.PlayPause />
-                  <Carousel.Button dir="last" />
-                </div>
-                <Carousel.Dots />
-              </Carousel>
+            <Demo style={{ marginTop: "2.5rem" }} code={SLICER_CODE}>
+              <SlicerSlider slides={photoSlides} loop autoplay autoplayInterval={4500} slices={6} height={440} />
             </Demo>
 
             <div className="chips">
@@ -494,7 +511,7 @@ export function Gallery() {
             </Demo>
           </Section>
 
-          <Section id="designs" num="06 / Cards" title="Card designs">
+          <Section id="designs" num="06 / Presets" title="Card designs">
             <p className="lead">The card preset ships six designs. Each is built from the card's two palette colours (<code>--rc-from</code> / <code>--rc-to</code>), so they stay fully themeable. Every card has its own <strong>Get code</strong>.</p>
 
             <div className="gallery">
@@ -513,7 +530,7 @@ export function Gallery() {
               ))}
             </div>
             <Demo code={`import CardSlider from "react-carousel-latest";
-import "react-carousel-latest/legacy.css";
+import "react-carousel-latest/presets.css";
 
 const slides = [
   { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower in style." },
@@ -528,22 +545,24 @@ export function Example() {
             </Demo>
           </Section>
 
-          <Section id="theming" num="07 / Cards" title="Theming">
-            <p>Override CSS custom properties on <code>.rc-root</code> (or any ancestor). No utility framework, no build step.</p>
-            <div className="table-wrap">
-              <table>
-                <thead><tr><th>Variable</th><th>Controls</th></tr></thead>
-                <tbody>{cssVars.map(([v, d]) => (<tr key={v}><td>{v}</td><td>{d}</td></tr>))}</tbody>
-              </table>
-            </div>
-            <CodeBlock lang="css" code={`.rc-root {\n  --rc-slide-size: 350px;\n  --rc-slide-gap: 1.25rem;\n  --rc-accent: #ff6a3d;\n}`} />
-            <p style={{ marginTop: "1rem" }}>This very page retints the carousel chrome for dark mode by overriding <code>--rc-button-bg</code> and <code>--rc-dot-active-color</code> — try the toggle, top right.</p>
+          <Section id="image" num="07 / Presets" title="Image slider">
+            <p className="lead">Full-bleed images with a centered caption, thin overlaid arrows, and overlaid dots. Built on the headless <code>Carousel</code>, so keyboard, swipe, and autoplay come for free.</p>
+            <Demo code={IMAGE_CODE}>
+              <ImageSlider slides={photoSlides} loop autoplay autoplayInterval={4000} height={460} />
+            </Demo>
           </Section>
 
-          <Section id="legacy" num="08 / Compatibility" title="Legacy CardSlider">
-            <p>The original 1.x API still works — it's the default export. Add the legacy stylesheet and you're done; the new <code>variant</code> prop is the only addition.</p>
+          <Section id="slicer" num="08 / Presets" title="Slicer slider">
+            <p className="lead">The same effect that greets you up top — transitions with a staggered <strong>horizontal-slice</strong> wipe. Tune it with the <code>slices</code> prop.</p>
+            <Demo code={SLICER_CODE}>
+              <SlicerSlider slides={photoSlides} loop slices={6} height={460} />
+            </Demo>
+          </Section>
+
+          <Section id="cardslider" num="09 / Presets" title="CardSlider">
+            <p>The card preset is also the package's default export — a native-scroll row of decorated cards. Add the presets stylesheet; the <code>variant</code> prop selects the design.</p>
             <CodeBlock code={`import CardSlider from "react-carousel-latest";
-import "react-carousel-latest/legacy.css";
+import "react-carousel-latest/presets.css";
 
 const slides = [
   { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower.", link: "https://example.com" },
@@ -555,7 +574,46 @@ export function Example() {
 }`} />
           </Section>
 
-          <Section id="a11y" num="09 / Compatibility" title="Accessibility">
+          <Section id="customslides" num="10 / More" title="Custom slides">
+            <p>A slide can hold any markup. Here are plain gradient panels driven by the headless <code>Carousel</code> with the full control set — Start / Prev / Play-Pause / Next / End plus dots.</p>
+            <Demo code={HERO_CODE}>
+              <Carousel slidesCount={scenes.length} loop autoplay autoplayInterval={3800} label="Scenery"
+                style={{ borderRadius: 14, overflow: "hidden" }}>
+                <Carousel.Button dir="prev" />
+                <Carousel.Track>
+                  {scenes.map((s, i) => (
+                    <Carousel.Slide key={s.title} index={i}>
+                      <div style={{ height: 340, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2rem", color: "#fff", background: s.bg }}>
+                        <span style={{ fontFamily: "Fraunces, serif", fontSize: "2.4rem", fontWeight: 500 }}>{s.title}</span>
+                        <span style={{ opacity: 0.92 }}>{s.sub}</span>
+                      </div>
+                    </Carousel.Slide>
+                  ))}
+                </Carousel.Track>
+                <Carousel.Button dir="next" />
+                <div className="rc-controls">
+                  <Carousel.Button dir="first" />
+                  <Carousel.PlayPause />
+                  <Carousel.Button dir="last" />
+                </div>
+                <Carousel.Dots />
+              </Carousel>
+            </Demo>
+          </Section>
+
+          <Section id="theming" num="11 / More" title="Theming">
+            <p>Override CSS custom properties on <code>.rc-root</code> (or any ancestor). No utility framework, no build step.</p>
+            <div className="table-wrap">
+              <table>
+                <thead><tr><th>Variable</th><th>Controls</th></tr></thead>
+                <tbody>{cssVars.map(([v, d]) => (<tr key={v}><td>{v}</td><td>{d}</td></tr>))}</tbody>
+              </table>
+            </div>
+            <CodeBlock lang="css" code={`.rc-root {\n  --rc-slide-size: 350px;\n  --rc-slide-gap: 1.25rem;\n  --rc-accent: #ff6a3d;\n}`} />
+            <p style={{ marginTop: "1rem" }}>This very page retints the carousel chrome for dark mode by overriding <code>--rc-button-bg</code> and <code>--rc-dot-active-color</code> — try the toggle, top right.</p>
+          </Section>
+
+          <Section id="a11y" num="12 / More" title="Accessibility">
             <p>Sensible semantics ship by default:</p>
             <ul className="checklist">
               <li>Region with <code>role="region"</code> and <code>aria-roledescription="carousel"</code>.</li>

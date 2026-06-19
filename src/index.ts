@@ -5,9 +5,12 @@
  *   import { Carousel } from "react-carousel-latest";
  *   import "react-carousel-latest/styles.css";
  *
- * The 1.x `CardSlider` remains the default export for backwards compatibility:
- *   import CardSlider from "react-carousel-latest";
- *   import "react-carousel-latest/legacy.css";
+ * Ready-made presets (CardSlider, ImageSlider, SlicerSlider) live under
+ * `./presets` and need the presets stylesheet:
+ *   import { ImageSlider } from "react-carousel-latest/presets";
+ *   import "react-carousel-latest/presets.css";
+ *
+ * `CardSlider` is also the default export of the package root.
  */
 
 // --- Compound components (primary 2.x API) ---
@@ -32,9 +35,14 @@ export type {
   Orientation,
 } from "./core/types";
 
-// --- Backwards-compatible 1.x default export ---
-export { default } from "./legacy/CardSlider";
-export { default as CardSlider } from "./legacy/CardSlider";
-export type { CardSliderProps, CardSliderSlide } from "./legacy/CardSlider";
-export type { CardVariant } from "./legacy/Card";
-export type { ShapeOption } from "./legacy/Blobs";
+// --- Preset sliders ---
+export { default } from "./presets/CardSlider";
+export { default as CardSlider } from "./presets/CardSlider";
+export type { CardSliderProps, CardSliderSlide } from "./presets/CardSlider";
+export { default as ImageSlider } from "./presets/ImageSlider";
+export type { ImageSliderProps, ImageSlide } from "./presets/ImageSlider";
+export { default as SlicerSlider } from "./presets/SlicerSlider";
+export type { SlicerSliderProps, SlicerSlide } from "./presets/SlicerSlider";
+export type { CardVariant } from "./presets/Card";
+export type { ShapeOption } from "./presets/Blobs";
+

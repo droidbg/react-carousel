@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="rc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4a90e2" />
+      <stop offset=".18" stop-color="#8e44ad" />
+      <stop offset=".36" stop-color="#d946ef" />
+      <stop offset=".54" stop-color="#ff5d3b" />
+      <stop offset=".72" stop-color="#f5c451" />
+      <stop offset=".88" stop-color="#2ecc71" />
+      <stop offset="1" stop-color="#02aabd" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#rc)" />
+  <!-- carousel pagination motif -->
+  <g fill="#fff">
+    <circle cx="11" cy="24" r="1.5" opacity=".7" />
+    <rect x="13.8" y="22.5" width="6.4" height="3" rx="1.5" />
+    <circle cx="23" cy="24" r="1.5" opacity=".7" />
+  </g>
+</svg>

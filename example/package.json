@@ -16,6 +16,8 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "framer-motion": "^12.6.3",
+    "lucide-react": "^0.487.0",
     "react": "^19.1.0",
     "react-carousel-latest": "file:..",
     "react-dom": "^19.1.0"
@@ -23,6 +25,8 @@
   "alias": {
     "react": "./node_modules/react",
     "react/jsx-runtime": "./node_modules/react/jsx-runtime",
-    "react-dom": "./node_modules/react-dom"
+    "react-dom": "./node_modules/react-dom",
+    "framer-motion": "./node_modules/framer-motion",
+    "lucide-react": "./node_modules/lucide-react"
   }
 }

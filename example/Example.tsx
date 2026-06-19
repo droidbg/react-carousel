@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import CardSlider, { Carousel, type CardVariant } from "../src";
 import Card from "../src/legacy/Card";
-import { palettes } from "../src/legacy/gradient";
+import { palettes, type Palette } from "../src/legacy/gradient";
 import type { ShapeOption } from "../src/legacy/Blobs";
 // docs.css @imports the library stylesheets so everything lands in one bundle.
 import "./docs.css";
@@ -62,7 +62,78 @@ const cssVars: [string, string][] = [
   ["--rc-dot-active-color", "Active pagination dot colour."],
 ];
 
+/* ----------------------------- code snippets ----------------------------- */
+
+const HERO_CODE = `<Carousel slidesCount={scenes.length} loop autoplay autoplayInterval={3800} label="Scenery">
+  <Carousel.Button dir="prev" />
+  <Carousel.Track>
+    {scenes.map((s, i) => (
+      <Carousel.Slide key={s.title} index={i}>
+        <div className="scene" style={{ background: s.bg }}>
+          <h3>{s.title}</h3>
+          <p>{s.sub}</p>
+        </div>
+      </Carousel.Slide>
+    ))}
+  </Carousel.Track>
+  <Carousel.Button dir="next" />
+  <div className="rc-controls">
+    <Carousel.Button dir="first" />
+    <Carousel.PlayPause />
+    <Carousel.Button dir="last" />
+  </div>
+  <Carousel.Dots />
+</Carousel>`;
+
+const MULTICARD_CODE = `<Carousel
+  slidesCount={cards.length}
+  style={{ "--rc-slide-size": "350px", "--rc-slide-gap": "1.25rem" }}
+>
+  <Carousel.Button dir="prev" />
+  <Carousel.Track>
+    {cards.map((card, i) => (
+      <Carousel.Slide key={card.title} index={i}>
+        <Card {...card} shape="star" variant="gradient" />
+      </Carousel.Slide>
+    ))}
+  </Carousel.Track>
+  <Carousel.Button dir="next" />
+  <Carousel.Dots />
+</Carousel>`;
+
+function cardCode(d: Design, p: Palette) {
+  return `import { Card } from "react-carousel-latest/legacy";
+
+// the exact card shown above
+<Card
+  title="${d.title}"
+  category="Preview"
+  description="Built from --rc-from / --rc-to."
+  from="${p.from}"
+  to="${p.to}"
+  shape="${d.shape}"
+  variant="${d.variant}"
+/>
+
+// …or get this design straight from the slider
+<CardSlider shape="${d.shape}" variant="${d.variant}" slides={slides} />`;
+}
+
 /* ----------------------------- hooks ----------------------------- */
+
+function useCopy() {
+  const [copied, setCopied] = useState(false);
+  const copy = (text: string) => {
+    navigator.clipboard?.writeText(text).then(
+      () => {
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 1400);
+      },
+      () => undefined,
+    );
+  };
+  return { copied, copy };
+}
 
 function useTheme() {
   const [theme, setTheme] = useState<string>(
@@ -103,6 +174,7 @@ function useActiveSection(ids: string[]) {
 /* ----------------------------- pieces ----------------------------- */
 
 function CodeBlock({ code, lang = "tsx" }: { code: string; lang?: string }) {
+  const { copied, copy } = useCopy();
   return (
     <div className="code">
       <div className="code__bar">
@@ -110,10 +182,64 @@ function CodeBlock({ code, lang = "tsx" }: { code: string; lang?: string }) {
         <span className="code__dot" />
         <span className="code__dot" />
         <span className="code__lang">{lang}</span>
+        <button className="code__copy" onClick={() => copy(code)}>{copied ? "copied ✓" : "copy"}</button>
       </div>
       <pre>
         <code>{code}</code>
       </pre>
+    </div>
+  );
+}
+
+function Demo({
+  code,
+  lang,
+  className,
+  style,
+  children,
+}: {
+  code: string;
+  lang?: string;
+  className?: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`demo${className ? ` ${className}` : ""}`} style={style}>
+      <button className="demo__toggle" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        {open ? "Hide code" : "Get code"}
+      </button>
+      {children}
+      {open && <CodeBlock code={code} lang={lang} />}
+    </div>
+  );
+}
+
+function VariantCard({ design, palette }: { design: Design; palette: Palette }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="variant">
+      <div className="variant__preview">
+        <Card
+          title={design.title}
+          category="Preview"
+          description="Built from --rc-from / --rc-to."
+          from={palette.from}
+          to={palette.to}
+          shape={design.shape}
+          variant={design.variant}
+        />
+      </div>
+      <div className="variant__body">
+        <span className="variant__name">variant="{design.variant}"</span>
+        <h3 className="variant__title" style={{ margin: "0.15rem 0 0.4rem" }}>{design.title}</h3>
+        <p className="variant__desc">{design.desc}</p>
+        <button className="variant__code" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+          {open ? "Hide code" : "Get code"}
+        </button>
+        {open && <CodeBlock code={cardCode(design, palette)} />}
+      </div>
     </div>
   );
 }
@@ -148,17 +274,7 @@ export default function Example() {
   const ids = useMemo(() => ALL_IDS, []);
   const active = useActiveSection(ids);
   const [variant, setVariant] = useState<CardVariant>("gradient");
-  const [copied, setCopied] = useState(false);
-
-  const copy = () => {
-    navigator.clipboard?.writeText("npm install react-carousel-latest").then(
-      () => {
-        setCopied(true);
-        window.setTimeout(() => setCopied(false), 1400);
-      },
-      () => undefined,
-    );
-  };
+  const install = useCopy();
 
   return (
     <>
@@ -211,11 +327,13 @@ export default function Example() {
               <a className="btn btn--primary" href="#quickstart">Get started →</a>
               <div className="cmd">
                 <span><span className="cmd__prompt">$</span> npm install react-carousel-latest</span>
-                <button onClick={copy}>{copied ? "copied ✓" : "copy"}</button>
+                <button onClick={() => install.copy("npm install react-carousel-latest")}>
+                  {install.copied ? "copied ✓" : "copy"}
+                </button>
               </div>
             </div>
 
-            <div className="demo demo--pad-lg" style={{ marginTop: "2.5rem" }}>
+            <Demo className="demo--pad-lg" style={{ marginTop: "2.5rem" }} code={HERO_CODE}>
               <Carousel slidesCount={scenes.length} loop autoplay autoplayInterval={3800} label="Scenery"
                 style={{ borderRadius: 14, overflow: "hidden" }}>
                 <Carousel.Button dir="prev" />
@@ -237,7 +355,7 @@ export default function Example() {
                 </div>
                 <Carousel.Dots />
               </Carousel>
-            </div>
+            </Demo>
 
             <div className="chips">
               {["Compound components", "useCarousel hook", "Touch & swipe", "Keyboard nav", "Autoplay", "Dual ESM / CJS", "No Tailwind required"].map((c) => (
@@ -290,9 +408,8 @@ export default function Example() {
           </Section>
 
           <Section id="patterns" num="05 / Carousel" title="Patterns">
-            <p>One slide or many — the same component. Set <code>--rc-slide-size</code> to a fixed width and several cards share the view, with neighbours peeking. Prev / next still page one card at a time.</p>
-            <CodeBlock code={`<Carousel\n  slidesCount={cards.length}\n  style={{ "--rc-slide-size": "350px", "--rc-slide-gap": "1.25rem" }}\n>\n  ...\n</Carousel>`} />
-            <div className="demo">
+            <p>One slide or many — the same component. Set <code>--rc-slide-size</code> to a fixed width and several cards share the view, with neighbours peeking. Prev / next still page one card at a time. Hit <strong>Get code</strong> on the demo for the full snippet.</p>
+            <Demo code={MULTICARD_CODE}>
               <Carousel slidesCount={cardSamples.length} label="Featured cards"
                 style={{ ["--rc-slide-size" as string]: "350px", ["--rc-slide-gap" as string]: "1.25rem" }}>
                 <Carousel.Button dir="prev" />
@@ -309,32 +426,20 @@ export default function Example() {
                 <Carousel.Button dir="next" />
                 <Carousel.Dots />
               </Carousel>
-            </div>
+            </Demo>
           </Section>
 
           <Section id="designs" num="06 / Cards" title="Card designs">
-            <p className="lead">The card preset ships six designs. Each is built from the card's two palette colours (<code>--rc-from</code> / <code>--rc-to</code>), so they stay fully themeable.</p>
+            <p className="lead">The card preset ships six designs. Each is built from the card's two palette colours (<code>--rc-from</code> / <code>--rc-to</code>), so they stay fully themeable. Every card has its own <strong>Get code</strong>.</p>
 
             <div className="gallery">
-              {designs.map((d, i) => {
-                const p = palettes[(i * 2) % palettes.length];
-                return (
-                  <div className="variant" key={d.variant}>
-                    <div className="variant__preview">
-                      <Card title={d.title} category="Preview" description="Built from --rc-from / --rc-to." from={p.from} to={p.to} shape={d.shape} variant={d.variant} />
-                    </div>
-                    <div className="variant__body">
-                      <span className="variant__name">variant="{d.variant}"</span>
-                      <h3 className="variant__title" style={{ margin: "0.15rem 0 0.4rem" }}>{d.title}</h3>
-                      <p className="variant__desc">{d.desc}</p>
-                    </div>
-                  </div>
-                );
-              })}
+              {designs.map((d, i) => (
+                <VariantCard key={d.variant} design={d} palette={palettes[(i * 2) % palettes.length]} />
+              ))}
             </div>
 
             <h3>Try them live</h3>
-            <p>Switch the <code>variant</code> prop on a single <code>&lt;CardSlider&gt;</code>:</p>
+            <p>Switch the <code>variant</code> prop on a single <code>&lt;CardSlider&gt;</code> — the snippet updates with it:</p>
             <div className="switcher">
               {designs.map((d) => (
                 <button key={d.variant} aria-pressed={variant === d.variant} onClick={() => setVariant(d.variant)}>
@@ -342,10 +447,9 @@ export default function Example() {
                 </button>
               ))}
             </div>
-            <div className="demo">
+            <Demo code={`<CardSlider shape="star" variant="${variant}" slides={slides} />`}>
               <CardSlider shape="star" randomBackground variant={variant} slides={cardSamples} />
-            </div>
-            <CodeBlock code={`<CardSlider shape="star" variant="${variant}" slides={slides} />`} />
+            </Demo>
           </Section>
 
           <Section id="theming" num="07 / Cards" title="Theming">

@@ -504,6 +504,22 @@ pre {
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
+.code__copy {
+  margin-left: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffffaa;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+.code__copy:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+}
 .code pre {
   margin: 0;
   padding: 1.1rem 1.25rem;
@@ -566,6 +582,7 @@ td:first-child {
 
 /* demo frame */
 .demo {
+  position: relative;
   margin: 1.4rem 0;
   padding: 2rem;
   border-radius: var(--radius);
@@ -576,6 +593,39 @@ td:first-child {
 }
 .demo--pad-lg {
   padding: 2.5rem 1rem;
+}
+
+/* "Get code" toggle pinned to a demo */
+.demo__toggle {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 4;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: color-mix(in oklab, var(--surface) 72%, transparent);
+  backdrop-filter: blur(10px);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.demo__toggle:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+.demo__toggle[aria-expanded="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+/* code revealed inside a demo sits flush to the frame */
+.demo > .code {
+  margin: 1.4rem 0 0;
+  max-width: none;
 }
 
 /* feature chips */
@@ -641,6 +691,31 @@ td:first-child {
   font-size: 0.88rem;
   color: var(--ink-soft);
   margin: 0;
+}
+.variant__code {
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.32rem 0.72rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.variant__code:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+.variant__code[aria-expanded="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.variant__body .code {
+  margin: 0.9rem 0 0;
+  max-width: none;
 }
 
 /* variant switcher */

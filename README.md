@@ -10,31 +10,17 @@
   <img src="https://img.shields.io/npm/l/react-carousel-latest?color=ff6a3d" alt="license" />
 </p>
 
-<p><strong>A headless, accessible, tree-shakeable React carousel</strong> with a compound-component API — keyboard, swipe, autoplay &amp; ARIA built in, plus ready-made presets (card, image, slicer).</p>
+<p><strong>A headless, accessible, tree-shakeable React carousel</strong><br/>compound-component API · keyboard · swipe · autoplay · ARIA · ready-made presets</p>
 
 <p>
-  <a href="https://react-carousel-latest.vercel.app/"><b>Live docs &amp; demo</b></a> ·
+  <a href="https://react-carousel-latest.vercel.app/"><b>📖 Documentation &amp; Live demos</b></a> ·
   <a href="https://www.npmjs.com/package/react-carousel-latest">npm</a> ·
-  <a href="https://github.com/droidbg/react-carousel/issues/new">Report a bug</a>
+  <a href="https://github.com/droidbg/react-carousel/issues/new/choose">Report a bug</a>
 </p>
 
 <img src="https://raw.githubusercontent.com/droidbg/react-carousel/main/.github/media/slicer.gif" alt="Slicer slider demo" width="720" />
 
 </div>
-
----
-
-
-## ✨ Features
-
-- **Headless core** — all logic in a `useCarousel` hook; bring your own markup.
-- **Compound components** — `Carousel.Track`, `Carousel.Slide`, `Carousel.Button`, `Carousel.Dots`, `Carousel.PlayPause`.
-- **One slide or many** — set one CSS variable for multi-card / peeking layouts; prev/next still page one slide.
-- **Full controls** — prev / next / first / last buttons, play–pause toggle, and clickable dots.
-- **Interactions** — keyboard (arrows / Home / End), touch & pointer **swipe**, and **autoplay** that pauses on hover/focus and respects `prefers-reduced-motion`.
-- **Accessible** — region/slide roles, `aria-live`, labelled controls, `aria-current` dots.
-- **No CSS framework required** — bundled CSS (`rc-` prefixed, themeable via CSS variables). No Tailwind needed.
-- **Dual ESM + CJS**, full TypeScript types, `sideEffects: false`.
 
 ---
 
@@ -44,193 +30,76 @@
 npm install react-carousel-latest
 ```
 
-> **2.0 is currently in beta.** To try it without affecting `latest`:
-> ```bash
-> npm install react-carousel-latest@beta
-> ```
-
----
-
-## 🚀 Usage (2.x compound API)
-
-```tsx
-import { Carousel } from "react-carousel-latest";
-import "react-carousel-latest/styles.css";
-
-export function Gallery({ items }) {
-  return (
-    <Carousel slidesCount={items.length} loop autoplay>
-      <Carousel.Button dir="prev" />
-      <Carousel.Track>
-        {items.map((item, i) => (
-          <Carousel.Slide key={item.id} index={i}>
-            <img src={item.src} alt={item.alt} />
-          </Carousel.Slide>
-        ))}
-      </Carousel.Track>
-      <Carousel.Button dir="next" />
-
-      {/* optional secondary controls */}
-      <div className="rc-controls">
-        <Carousel.Button dir="first" />
-        <Carousel.PlayPause />
-        <Carousel.Button dir="last" />
-      </div>
-
-      <Carousel.Dots />
-    </Carousel>
-  );
-}
-```
-
-### Options (`<Carousel>` props)
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `slidesCount` | `number` | — | **Required.** Number of slides. |
-| `initialIndex` | `number` | `0` | First active slide. |
-| `loop` | `boolean` | `false` | Wrap past the ends. |
-| `autoplay` | `boolean` | `false` | Auto-advance. |
-| `autoplayInterval` | `number` | `4000` | Autoplay delay (ms). |
-| `slidesToScroll` | `number` | `1` | Slides per prev/next. |
-| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Layout axis. |
-| `onIndexChange` | `(index: number) => void` | — | Active-slide callback. |
-| `label` | `string` | `"Carousel"` | Accessible region name. |
-
-### Parts
-
-| Part | Purpose |
-| --- | --- |
-| `Carousel.Track` | The clipping viewport + moving strip. Wraps the slides. |
-| `Carousel.Slide` | A single slide. Takes a zero-based `index`. |
-| `Carousel.Button` | Navigation. `dir="prev" \| "next" \| "first" \| "last"`. |
-| `Carousel.PlayPause` | Toggles autoplay (`aria-pressed`). |
-| `Carousel.Dots` | Clickable pagination, one dot per slide. |
-
-### Multi-card / peeking layout
-
-The same component shows several cards at once — just set the slide width:
-
-```tsx
-<Carousel
-  slidesCount={cards.length}
-  style={{ "--rc-slide-size": "320px", "--rc-slide-gap": "1.25rem" }}
->
-  {/* … */}
-</Carousel>
-```
-
-`--rc-slide-size: 100%` (the default) is one-per-view; any fixed width or percentage shows multiple slides with neighbours peeking, and prev/next still advance exactly one slide.
-
-### Theming
-
-Override CSS variables on `.rc-root` (or any ancestor):
-
-```css
-.rc-root {
-  --rc-slide-size: 80%;     /* show neighbours */
-  --rc-slide-gap: 1.5rem;
-  --rc-duration: 400ms;
-  --rc-accent: #ff6a3d;     /* focus ring + active dot */
-  --rc-button-bg: #111;
-}
-```
-
-### Fully headless
-
-```tsx
-import { useCarousel } from "react-carousel-latest";
-
-const api = useCarousel({ slidesCount: 5, loop: true });
-// → { activeIndex, next, prev, goTo, play, pause, isPlaying, canPrev, canNext, trackRef, rootRef }
-```
-
----
-
-## 🧩 Presets
-
-Ready-made sliders built on the headless core, importable from `react-carousel-latest/presets`. They need the presets stylesheet **in addition to** the base one:
+Import the base stylesheet once at your app root (and `presets.css` if you use a preset):
 
 ```tsx
 import "react-carousel-latest/styles.css";
 import "react-carousel-latest/presets.css";
 ```
 
-### `CardSlider` — decorated card row (also the default export)
+---
 
-```tsx
-import CardSlider from "react-carousel-latest";
+## 🚀 Quick start
 
-<CardSlider
-  shape="star"            // "blob" | "heart" | "star" | "bear" | "music" | "trophy" | "ring"
-  randomBackground
-  variant="glass"         // gradient | glass | solid | outline | dark | minimal
-  slides={[
-    { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower.", link: "https://example.com" },
-    { title: "Star Chef", category: "Food", description: "A recipe that's out of this world." },
-  ]}
-/>;
-```
-
-Card design variants — `"gradient"` (default) · `"glass"` · `"solid"` · `"outline"` · `"dark"` · `"minimal"` — are each built from the card's two palette colours (`--rc-from` / `--rc-to`), so they stay themeable.
-
-### `ImageSlider` — full-bleed image carousel
-
-```tsx
-import { ImageSlider } from "react-carousel-latest/presets";
-
-<ImageSlider
-  loop
-  autoplay
-  height={460}
-  slides={[
-    { src: "/a.jpg", alt: "Aurora", caption: "Aurora" },
-    { src: "/b.jpg", alt: "Desert", caption: "Desert" },
-  ]}
-/>;
-```
-
-### `SlicerSlider` — staggered horizontal-slice transition
+A full-bleed image carousel with the staggered slice transition:
 
 ```tsx
 import { SlicerSlider } from "react-carousel-latest/presets";
+import "react-carousel-latest/styles.css";
+import "react-carousel-latest/presets.css";
 
-<SlicerSlider
-  loop
-  slices={6}              // horizontal strips per slide
-  height={460}
-  slides={[
-    { src: "/a.jpg", caption: "Slide 1" },
-    { src: "/b.jpg", caption: "Slide 2" },
-  ]}
-/>;
+const slides = [
+  { src: "/photos/01.jpg", caption: "Slide 1" },
+  { src: "/photos/02.jpg", caption: "Slide 2" },
+  { src: "/photos/03.jpg", caption: "Slide 3" },
+];
+
+export default function App() {
+  return <SlicerSlider slides={slides} loop autoplay slices={6} height={460} />;
+}
 ```
 
----
-
-## ⬆️ Migrating from 1.x
-
-2.0 is a major release. Your existing code keeps working, with **one required change**:
-
-- **Import the presets stylesheet.** 1.x relied on the consumer having Tailwind configured. 2.x ships its own CSS, so add `import "react-carousel-latest/presets.css";` alongside your existing `import CardSlider from "react-carousel-latest";`. Without it the cards render unstyled.
-- **React 18 or 19** is now required (the peer range was 15–19).
-- Everything else — the `<CardSlider slides shape randomBackground />` API — is unchanged. The new compound `Carousel` is opt-in via the named export.
+> Building something custom? The headless `<Carousel>` primitives, the other presets, theming, and the complete prop reference live in the **[documentation](https://react-carousel-latest.vercel.app/)** — with copy-paste code for every example.
 
 ---
 
-## 🛠 Local development
+## ✨ Features
 
-This package is bundled with [`tsup`](https://tsup.egoist.dev/) (esbuild) into dual ESM/CJS with generated types.
-
-```bash
-npm install && npm run build      # build the library
-npm run example                   # start the docs site (example/)
-```
-
-> **Bundler note:** `tsup` was chosen over Vite library mode / Microbundle because it produces dual ESM+CJS, `.d.ts`, and multi-entry output (`.` and `./presets`) from one config while keeping the tree shakeable.
+- **Headless core** — all logic in a `useCarousel` hook; bring your own markup.
+- **Compound components** — `Carousel.Track / Slide / Button / Dots / PlayPause`.
+- **Ready-made presets** — `CardSlider`, `ImageSlider`, and `SlicerSlider`.
+- **Interactions** — keyboard (arrows / Home / End), touch & pointer swipe, and autoplay that pauses on hover/focus and respects `prefers-reduced-motion`.
+- **Accessible** — region/slide roles, `aria-live`, labelled controls.
+- **No CSS framework required** — bundled, themeable CSS. No Tailwind.
+- **Dual ESM + CJS**, full TypeScript types, `sideEffects: false`.
 
 ---
 
-## License
+## 🧩 What's in the box
 
-MIT
+| Export                     | What it is                                                  |
+| -------------------------- | ----------------------------------------------------------- |
+| `Carousel` + `useCarousel` | Headless compound primitives — compose your own UI.         |
+| `CardSlider`               | Decorated card row with six design variants.                |
+| `ImageSlider`              | Full-bleed image carousel with caption + overlaid controls. |
+| `SlicerSlider`             | Staggered horizontal-slice wipe transition.                 |
+
+Checkout Full API, theming, accessibility notes, and live demos: **<https://react-carousel-latest.vercel.app/>**
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read the [Contributing guide](./CONTRIBUTING.md) and our [Code of Conduct](./CODE_OF_CONDUCT.md). For bugs and ideas, use the [issue templates](https://github.com/droidbg/react-carousel/issues/new/choose).
+
+## 🔒 Security
+
+Found a vulnerability? Please follow the [Security policy](./SECURITY.md) — don't open a public issue.
+
+## 📝 Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for release notes.
+
+## 📄 License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.

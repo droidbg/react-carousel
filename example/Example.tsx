@@ -656,7 +656,7 @@ export function Example() {
           </Section>
 
           <footer className="footer">
-            <span>react-carousel-latest · MIT</span>
+            <span>react-carousel-latest · Apache-2.0</span>
             <span>Built with Fraunces &amp; Hanken Grotesk</span>
           </footer>
         </main>

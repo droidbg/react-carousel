@@ -32,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/droidbg/react-carousel/issues"
   },
-  "homepage": "https://github.com/droidbg/react-carousel#readme",
+  "homepage": "https://react-carousel-latest.vercel.app/",
   "keywords": [
     "react",
     "carousel",
@@ -59,13 +59,14 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck && npm run build",
     "lint": "eslint src",
     "prepublishOnly": "npm run build",
     "release": "bash scripts/release.sh",
     "example": "npm --prefix example run dev"
   },
   "author": "Binni G.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"

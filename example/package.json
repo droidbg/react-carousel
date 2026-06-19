@@ -7,7 +7,7 @@
     "build": "rm -rf dist .parcel-cache && parcel build index.html"
   },
   "author": "Example",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "description": "This is example",
   "//browserslist": "Targets without import-map support so Parcel inlines asset URLs via its classic runtime instead of import.meta.resolve.",
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, Safari >= 14, not dead",

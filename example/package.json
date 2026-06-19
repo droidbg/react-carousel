@@ -9,6 +9,8 @@
   "author": "Example",
   "license": "MIT",
   "description": "This is example",
+  "//browserslist": "Targets without import-map support so Parcel inlines asset URLs via its classic runtime instead of import.meta.resolve.",
+  "browserslist": "> 0.5%, last 2 versions, Firefox ESR, Safari >= 14, not dead",
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.3",
     "parcel": "^2.16.4",

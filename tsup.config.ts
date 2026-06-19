@@ -3,7 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   entry: {
     index: "src/index.ts",
-    legacy: "src/legacy/index.ts",
+    presets: "src/presets/index.ts",
   },
   format: ["esm", "cjs"],
   // Emit .d.ts for every entry (uses tsconfig.build.json's settings).
@@ -19,5 +19,5 @@ export default defineConfig({
   // CSS is shipped as standalone files (not imported by the JS) so the package
   // stays side-effect-free and fully tree-shakeable.
   onSuccess:
-    "cp src/styles/carousel.css dist/styles.css && cp src/legacy/legacy.css dist/legacy.css",
+    "cp src/styles/carousel.css dist/styles.css && cp src/presets/presets.css dist/presets.css",
 });

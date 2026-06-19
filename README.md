@@ -128,18 +128,24 @@ const api = useCarousel({ slidesCount: 5, loop: true });
 
 ---
 
-## 🧩 Legacy `CardSlider` (1.x compatible)
+## 🧩 Presets
 
-The original API still works — it's the default export. Just add the legacy stylesheet:
+Ready-made sliders built on the headless core, importable from `react-carousel-latest/presets`. They need the presets stylesheet **in addition to** the base one:
+
+```tsx
+import "react-carousel-latest/styles.css";
+import "react-carousel-latest/presets.css";
+```
+
+### `CardSlider` — decorated card row (also the default export)
 
 ```tsx
 import CardSlider from "react-carousel-latest";
-import "react-carousel-latest/legacy.css";
 
 <CardSlider
   shape="star"            // "blob" | "heart" | "star" | "bear" | "music" | "trophy" | "ring"
   randomBackground
-  variant="glass"         // NEW in 2.x: card design preset
+  variant="glass"         // gradient | glass | solid | outline | dark | minimal
   slides={[
     { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower.", link: "https://example.com" },
     { title: "Star Chef", category: "Food", description: "A recipe that's out of this world." },
@@ -147,11 +153,39 @@ import "react-carousel-latest/legacy.css";
 />;
 ```
 
-### Card design variants (`variant` prop)
+Card design variants — `"gradient"` (default) · `"glass"` · `"solid"` · `"outline"` · `"dark"` · `"minimal"` — are each built from the card's two palette colours (`--rc-from` / `--rc-to`), so they stay themeable.
 
-`"gradient"` (default) · `"glass"` · `"solid"` · `"outline"` · `"dark"` · `"minimal"`
+### `ImageSlider` — full-bleed image carousel
 
-Each variant is built from the card's two palette colours (`--rc-from` / `--rc-to`), so they all stay themeable.
+```tsx
+import { ImageSlider } from "react-carousel-latest/presets";
+
+<ImageSlider
+  loop
+  autoplay
+  height={460}
+  slides={[
+    { src: "/a.jpg", alt: "Aurora", caption: "Aurora" },
+    { src: "/b.jpg", alt: "Desert", caption: "Desert" },
+  ]}
+/>;
+```
+
+### `SlicerSlider` — staggered horizontal-slice transition
+
+```tsx
+import { SlicerSlider } from "react-carousel-latest/presets";
+
+<SlicerSlider
+  loop
+  slices={6}              // horizontal strips per slide
+  height={460}
+  slides={[
+    { src: "/a.jpg", caption: "Slide 1" },
+    { src: "/b.jpg", caption: "Slide 2" },
+  ]}
+/>;
+```
 
 ---
 
@@ -159,7 +193,7 @@ Each variant is built from the card's two palette colours (`--rc-from` / `--rc-t
 
 2.0 is a major release. Your existing code keeps working, with **one required change**:
 
-- **Import the legacy stylesheet.** 1.x relied on the consumer having Tailwind configured. 2.x ships its own CSS, so add `import "react-carousel-latest/legacy.css";` alongside your existing `import CardSlider from "react-carousel-latest";`. Without it the cards render unstyled.
+- **Import the presets stylesheet.** 1.x relied on the consumer having Tailwind configured. 2.x ships its own CSS, so add `import "react-carousel-latest/presets.css";` alongside your existing `import CardSlider from "react-carousel-latest";`. Without it the cards render unstyled.
 - **React 18 or 19** is now required (the peer range was 15–19).
 - Everything else — the `<CardSlider slides shape randomBackground />` API — is unchanged. The new compound `Carousel` is opt-in via the named export.
 
@@ -174,7 +208,7 @@ npm install && npm run build      # build the library
 npm run example                   # start the docs site (example/)
 ```
 
-> **Bundler note:** `tsup` was chosen over Vite library mode / Microbundle because it produces dual ESM+CJS, `.d.ts`, and multi-entry output (`.` and `./legacy`) from one config while keeping the tree shakeable.
+> **Bundler note:** `tsup` was chosen over Vite library mode / Microbundle because it produces dual ESM+CJS, `.d.ts`, and multi-entry output (`.` and `./presets`) from one config while keeping the tree shakeable.
 
 ---
 

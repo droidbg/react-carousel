@@ -8,7 +8,7 @@
    Parcel emit a separate, unlinked CSS chunk; @import keeps everything in one
    linked stylesheet. Published consumers just use the package subpaths. */
 @import "../src/styles/carousel.css";
-@import "../src/legacy/legacy.css";
+@import "../src/presets/presets.css";
 
 /* ----------------------------- Theme tokens ----------------------------- */
 :root {

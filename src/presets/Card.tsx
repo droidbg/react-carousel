@@ -30,7 +30,7 @@ export interface CardProps {
  * The opinionated card. Its palette is published as CSS custom properties
  * (`--rc-from` / `--rc-to`) so each `variant` class can build backgrounds,
  * borders, and accents from the same two colours. Styling lives in
- * `legacy.css` — no Tailwind required.
+ * `presets.css` — no Tailwind required.
  */
 export default function Card({
   title,

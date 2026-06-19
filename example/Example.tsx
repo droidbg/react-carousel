@@ -64,59 +64,100 @@ const cssVars: [string, string][] = [
 
 /* ----------------------------- code snippets ----------------------------- */
 
-const HERO_CODE = `<Carousel slidesCount={scenes.length} loop autoplay autoplayInterval={3800} label="Scenery">
-  <Carousel.Button dir="prev" />
-  <Carousel.Track>
-    {scenes.map((s, i) => (
-      <Carousel.Slide key={s.title} index={i}>
-        <div className="scene" style={{ background: s.bg }}>
-          <h3>{s.title}</h3>
-          <p>{s.sub}</p>
-        </div>
-      </Carousel.Slide>
-    ))}
-  </Carousel.Track>
-  <Carousel.Button dir="next" />
-  <div className="rc-controls">
-    <Carousel.Button dir="first" />
-    <Carousel.PlayPause />
-    <Carousel.Button dir="last" />
-  </div>
-  <Carousel.Dots />
-</Carousel>`;
+const HERO_CODE = `import { Carousel } from "react-carousel-latest";
+import "react-carousel-latest/styles.css";
 
-const MULTICARD_CODE = `<Carousel
-  slidesCount={cards.length}
-  style={{ "--rc-slide-size": "350px", "--rc-slide-gap": "1.25rem" }}
->
-  <Carousel.Button dir="prev" />
-  <Carousel.Track>
-    {cards.map((card, i) => (
-      <Carousel.Slide key={card.title} index={i}>
-        <Card {...card} shape="star" variant="gradient" />
-      </Carousel.Slide>
-    ))}
-  </Carousel.Track>
-  <Carousel.Button dir="next" />
-  <Carousel.Dots />
-</Carousel>`;
+const scenes = [
+  { title: "Aurora", sub: "Northern lights over the fjords", bg: "linear-gradient(135deg,#667eea,#764ba2)" },
+  { title: "Desert", sub: "Endless dunes at golden hour", bg: "linear-gradient(135deg,#f093fb,#f5576c)" },
+  { title: "Ocean", sub: "Deep blue, calm and vast", bg: "linear-gradient(135deg,#4facfe,#00f2fe)" },
+  { title: "Forest", sub: "Mist between ancient pines", bg: "linear-gradient(135deg,#0ba360,#3cba92)" },
+];
+
+export function HeroCarousel() {
+  return (
+    <Carousel slidesCount={scenes.length} loop autoplay autoplayInterval={3800} label="Scenery">
+      <Carousel.Button dir="prev" />
+      <Carousel.Track>
+        {scenes.map((s, i) => (
+          <Carousel.Slide key={s.title} index={i}>
+            <div style={{ height: 340, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2rem", color: "#fff", background: s.bg }}>
+              <h3 style={{ fontSize: "2.4rem", margin: 0 }}>{s.title}</h3>
+              <p style={{ margin: 0, opacity: 0.92 }}>{s.sub}</p>
+            </div>
+          </Carousel.Slide>
+        ))}
+      </Carousel.Track>
+      <Carousel.Button dir="next" />
+      <div className="rc-controls">
+        <Carousel.Button dir="first" />
+        <Carousel.PlayPause />
+        <Carousel.Button dir="last" />
+      </div>
+      <Carousel.Dots />
+    </Carousel>
+  );
+}`;
+
+const MULTICARD_CODE = `import { Carousel } from "react-carousel-latest";
+import { Card } from "react-carousel-latest/legacy";
+import "react-carousel-latest/styles.css";
+import "react-carousel-latest/legacy.css";
+
+const cards = [
+  { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower in style.", from: "#6A0572", to: "#AB83A1" },
+  { title: "Star Chef", category: "Food", description: "A recipe that's out of this world.", from: "#16A085", to: "#1ABC9C" },
+  { title: "Rising Star", category: "Entertainment", description: "The actor taking Hollywood by storm.", from: "#D35400", to: "#E67E22" },
+  { title: "All-Star", category: "Sports", description: "Highlights from the season's best.", from: "#8E2DE2", to: "#4A00E0" },
+];
+
+export function CardCarousel() {
+  return (
+    <Carousel
+      slidesCount={cards.length}
+      style={{ "--rc-slide-size": "350px", "--rc-slide-gap": "1.25rem" } as React.CSSProperties}
+    >
+      <Carousel.Button dir="prev" />
+      <Carousel.Track>
+        {cards.map((card, i) => (
+          <Carousel.Slide key={card.title} index={i}>
+            <Card {...card} shape="star" variant="gradient" />
+          </Carousel.Slide>
+        ))}
+      </Carousel.Track>
+      <Carousel.Button dir="next" />
+      <Carousel.Dots />
+    </Carousel>
+  );
+}`;
 
 function cardCode(d: Design, p: Palette) {
-  return `import { Card } from "react-carousel-latest/legacy";
+  return `import { Card, CardSlider } from "react-carousel-latest/legacy";
+import "react-carousel-latest/legacy.css";
 
-// the exact card shown above
-<Card
-  title="${d.title}"
-  category="Preview"
-  description="Built from --rc-from / --rc-to."
-  from="${p.from}"
-  to="${p.to}"
-  shape="${d.shape}"
-  variant="${d.variant}"
-/>
+const slides = [
+  { title: "${d.title}", category: "Preview", description: "Built from --rc-from / --rc-to." },
+];
 
-// …or get this design straight from the slider
-<CardSlider shape="${d.shape}" variant="${d.variant}" slides={slides} />`;
+// 1 — the single card shown above
+export function CardExample() {
+  return (
+    <Card
+      title="${d.title}"
+      category="Preview"
+      description="Built from --rc-from / --rc-to."
+      from="${p.from}"
+      to="${p.to}"
+      shape="${d.shape}"
+      variant="${d.variant}"
+    />
+  );
+}
+
+// 2 — or a whole slider in the "${d.variant}" design
+export function SliderExample() {
+  return <CardSlider shape="${d.shape}" variant="${d.variant}" slides={slides} />;
+}`;
 }
 
 /* ----------------------------- hooks ----------------------------- */
@@ -374,7 +415,31 @@ export default function Example() {
 
           <Section id="quickstart" num="02 / Getting started" title="Quick start">
             <p>Compose the parts. You provide <code>slidesCount</code> and render whatever you like inside each <code>Carousel.Slide</code>.</p>
-            <CodeBlock code={`<Carousel slidesCount={items.length} loop autoplay>\n  <Carousel.Button dir="prev" />\n  <Carousel.Track>\n    {items.map((item, i) => (\n      <Carousel.Slide key={item.id} index={i}>\n        {item.content}\n      </Carousel.Slide>\n    ))}\n  </Carousel.Track>\n  <Carousel.Button dir="next" />\n  <Carousel.Dots />\n</Carousel>`} />
+            <CodeBlock code={`import { Carousel } from "react-carousel-latest";
+import "react-carousel-latest/styles.css";
+
+const items = [
+  { id: 1, content: "Slide one" },
+  { id: 2, content: "Slide two" },
+  { id: 3, content: "Slide three" },
+];
+
+export function Gallery() {
+  return (
+    <Carousel slidesCount={items.length} loop autoplay>
+      <Carousel.Button dir="prev" />
+      <Carousel.Track>
+        {items.map((item, i) => (
+          <Carousel.Slide key={item.id} index={i}>
+            {item.content}
+          </Carousel.Slide>
+        ))}
+      </Carousel.Track>
+      <Carousel.Button dir="next" />
+      <Carousel.Dots />
+    </Carousel>
+  );
+}`} />
           </Section>
 
           <Section id="api" num="03 / Carousel" title="Props">
@@ -447,7 +512,18 @@ export default function Example() {
                 </button>
               ))}
             </div>
-            <Demo code={`<CardSlider shape="star" variant="${variant}" slides={slides} />`}>
+            <Demo code={`import CardSlider from "react-carousel-latest";
+import "react-carousel-latest/legacy.css";
+
+const slides = [
+  { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower in style." },
+  { title: "Star Chef", category: "Food", description: "A recipe that's out of this world." },
+  { title: "Rising Star", category: "Entertainment", description: "The actor taking Hollywood by storm." },
+];
+
+export function Example() {
+  return <CardSlider shape="star" variant="${variant}" randomBackground slides={slides} />;
+}`}>
               <CardSlider shape="star" randomBackground variant={variant} slides={cardSamples} />
             </Demo>
           </Section>
@@ -466,7 +542,17 @@ export default function Example() {
 
           <Section id="legacy" num="08 / Compatibility" title="Legacy CardSlider">
             <p>The original 1.x API still works — it's the default export. Add the legacy stylesheet and you're done; the new <code>variant</code> prop is the only addition.</p>
-            <CodeBlock code={`import CardSlider from "react-carousel-latest";\nimport "react-carousel-latest/legacy.css";\n\n<CardSlider shape="star" variant="glass" randomBackground slides={slides} />`} />
+            <CodeBlock code={`import CardSlider from "react-carousel-latest";
+import "react-carousel-latest/legacy.css";
+
+const slides = [
+  { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower.", link: "https://example.com" },
+  { title: "Star Chef", category: "Food", description: "A recipe that's out of this world." },
+];
+
+export function Example() {
+  return <CardSlider shape="star" variant="glass" randomBackground slides={slides} />;
+}`} />
           </Section>
 
           <Section id="a11y" num="09 / Compatibility" title="Accessibility">

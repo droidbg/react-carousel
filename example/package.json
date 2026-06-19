@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "parcel index.html",
-    "build": "rm -rf node_modules dist .parcel-cache package-lock.json && npm cache clean --force && npm install && parcel build index.html"
+    "dev": "rm -rf .parcel-cache && parcel index.html",
+    "build": "rm -rf dist .parcel-cache && parcel build index.html"
   },
   "author": "Example",
   "license": "MIT",
@@ -16,7 +17,12 @@
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-carousel-latest": "^1.0.0",
+    "react-carousel-latest": "file:..",
     "react-dom": "^19.1.0"
+  },
+  "alias": {
+    "react": "./node_modules/react",
+    "react/jsx-runtime": "./node_modules/react/jsx-runtime",
+    "react-dom": "./node_modules/react-dom"
   }
 }

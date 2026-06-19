@@ -42,7 +42,7 @@ const shapePaths: Record<ShapeOption, string[]> = {
   ],
 };
 
-/** Decorative background SVG shapes for the legacy {@link Card}. */
+/** Decorative background SVG shapes for the {@link Card} preset. */
 export default function Blobs({ seed, shape = "blob" }: BlobProps) {
   const blobShapes = shapePaths[shape];
 

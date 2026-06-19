@@ -13,13 +13,13 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./legacy": {
-      "types": "./dist/legacy.d.ts",
-      "import": "./dist/legacy.js",
-      "require": "./dist/legacy.cjs"
+    "./presets": {
+      "types": "./dist/presets.d.ts",
+      "import": "./dist/presets.js",
+      "require": "./dist/presets.cjs"
     },
     "./styles.css": "./dist/styles.css",
-    "./legacy.css": "./dist/legacy.css",
+    "./presets.css": "./dist/presets.css",
     "./package.json": "./package.json"
   },
   "files": [

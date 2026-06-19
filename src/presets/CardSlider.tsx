@@ -22,12 +22,9 @@ export interface CardSliderProps {
 }
 
 /**
- * Backwards-compatible 1.x API. Preserves the original native-scroll behaviour
- * and visuals; the styling backend moved from Tailwind to bundled CSS, the
- * arrow icons from react-icons to lucide-react, and a new `variant` prop adds
- * selectable card designs.
- *
- * @deprecated Prefer the compound `Carousel` API in 2.x for new code.
+ * Card preset — a horizontal, native-scroll row of decorated cards. Also the
+ * default export of the package. Styling is framework-free (no Tailwind), and
+ * the `variant` prop selects a card design.
  */
 export default function CardSlider({
   slides,

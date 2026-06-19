@@ -34,14 +34,10 @@ export function getPalettes(randomBackground: boolean): Palette[] {
   return randomBackground ? shuffle(palettes) : palettes.slice();
 }
 
-/**
- * Gradient strings, optionally shuffled. Retained for 1.x compatibility.
- *
- * @deprecated Prefer {@link getPalettes} + the `variant` API.
- */
+/** Gradient strings, optionally shuffled (convenience over {@link getPalettes}). */
 export function getBackground(randomBackground: boolean): string[] {
   return getPalettes(randomBackground).map(gradientCss);
 }
 
-/** @deprecated Retained for 1.x compatibility. */
+/** All palettes as ready-made gradient strings. */
 export const gradients = palettes.map(gradientCss);

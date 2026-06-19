@@ -1,0 +1,189 @@
+/*
+ * react-carousel-latest — base styles.
+ *
+ * Import once at your app root:  import "react-carousel-latest/styles.css";
+ *
+ * Everything is namespaced with `rc-` and driven by CSS custom properties, so
+ * you can theme without overriding rules. There is NO Tailwind dependency.
+ */
+
+.rc-root {
+  /* Theming knobs — override on .rc-root or any ancestor. */
+  --rc-slide-size: 100%;
+  --rc-slide-gap: 1rem;
+  --rc-duration: 350ms;
+  --rc-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --rc-button-bg: rgba(17, 24, 39, 0.65);
+  --rc-button-bg-hover: rgba(17, 24, 39, 0.85);
+  --rc-button-color: #fff;
+  --rc-button-size: 2.5rem;
+  --rc-accent: #111827;
+  --rc-dot-color: rgba(17, 24, 39, 0.22);
+  --rc-dot-active-color: var(--rc-accent);
+
+  position: relative;
+  outline: none;
+}
+
+.rc-root:focus-visible {
+  outline: 2px solid var(--rc-accent);
+  outline-offset: 2px;
+}
+
+/* Clipping window. */
+.rc-viewport {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * The moving strip. The track box is viewport-wide, so a translate of one
+ * slide-size (+ gap) advances exactly one slide — whether --rc-slide-size is a
+ * percentage (multiple cards per view) or a fixed width.
+ */
+.rc-track {
+  display: flex;
+  gap: var(--rc-slide-gap);
+  will-change: transform;
+  transition: transform var(--rc-duration) var(--rc-easing);
+  transform: translate3d(
+    calc(
+      var(--rc-active-index, 0) * -1 *
+        (var(--rc-slide-size, 100%) + var(--rc-slide-gap)) + var(--rc-drag, 0px)
+    ),
+    0,
+    0
+  );
+}
+
+.rc-track[data-orientation="vertical"] {
+  flex-direction: column;
+  transform: translate3d(
+    0,
+    calc(
+      var(--rc-active-index, 0) * -1 *
+        (var(--rc-slide-size, 100%) + var(--rc-slide-gap)) + var(--rc-drag, 0px)
+    ),
+    0
+  );
+}
+
+/* No animation while the finger is down — the content must track the pointer. */
+.rc-track[data-dragging] {
+  transition: none;
+  cursor: grabbing;
+}
+
+.rc-slide {
+  flex: 0 0 var(--rc-slide-size);
+  min-width: 0;
+  min-height: 0;
+  user-select: none;
+}
+
+/* ----------------------------- Buttons ----------------------------- */
+/* Base pill — used by every control (prev/next/first/last/play-pause). */
+.rc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rc-button-size);
+  height: var(--rc-button-size);
+  padding: 0;
+  font-size: calc(var(--rc-button-size) * 0.5);
+  color: var(--rc-button-color);
+  background: var(--rc-button-bg);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 150ms ease, opacity 150ms ease, transform 150ms ease;
+}
+
+.rc-button:hover:not(:disabled) {
+  background: var(--rc-button-bg-hover);
+}
+
+.rc-button:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.rc-button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.rc-button:focus-visible {
+  outline: 2px solid var(--rc-accent);
+  outline-offset: 2px;
+}
+
+/* Prev/next overlay the track edges. */
+.rc-button--prev,
+.rc-button--next {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+}
+
+.rc-button--prev:active:not(:disabled),
+.rc-button--next:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.rc-button--prev {
+  left: 0.5rem;
+}
+.rc-button--next {
+  right: 0.5rem;
+}
+
+.rc-button__icon {
+  display: block;
+}
+
+/* Optional controls row for Start / Play-Pause / End etc. */
+.rc-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* ----------------------------- Dots ----------------------------- */
+.rc-dots {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.rc-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  padding: 0;
+  background: var(--rc-dot-color);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.rc-dot:focus-visible {
+  outline: 2px solid var(--rc-accent);
+  outline-offset: 2px;
+}
+
+.rc-dot--active {
+  background: var(--rc-dot-active-color);
+  transform: scale(1.25);
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .rc-track {
+    transition-duration: 1ms;
+  }
+}

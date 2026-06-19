@@ -1,26 +1,33 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./src"],
+    /* Language / environment — modern browsers + React 18/19. */
     "target": "ES2020",
-    "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["node"],
-    /* Linting */
+    "useDefineForClassFields": true,
+
+    /* Module system — bundler resolves, the bundler emits. */
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+
+    /* Library output — declarations are emitted by the build config. */
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noEmit": true,
+
+    /* Strictness. */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
-  "include": ["src", "./example"]
+  "include": ["src"]
 }

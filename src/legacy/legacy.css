@@ -1,0 +1,259 @@
+/*
+ * Legacy 1.x preset styles (CardSlider + Card + Blobs).
+ *
+ * Import alongside the base stylesheet when using the deprecated CardSlider:
+ *   import "react-carousel-latest/legacy.css";
+ *
+ * This reproduces the original look in framework-free CSS so existing
+ * consumers no longer need Tailwind configured. Each card reads its palette
+ * from the --rc-from / --rc-to custom properties set inline by <Card>, so a
+ * single set of colours drives every design variant.
+ */
+
+.rc-cardslider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.rc-cardslider__overlay {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  height: 100%;
+  width: 4rem;
+}
+
+.rc-cardslider__overlay--left {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.9), transparent);
+}
+
+.rc-cardslider__overlay--right {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+}
+
+.rc-cardslider__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: #111827;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+  opacity: 0.5;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.4);
+  transform: translateY(-50%);
+  transition: opacity 150ms ease;
+}
+
+.rc-cardslider__arrow:hover {
+  opacity: 1;
+}
+
+.rc-cardslider__arrow--left {
+  left: 0.75rem;
+}
+.rc-cardslider__arrow--right {
+  right: 0.75rem;
+}
+
+.rc-cardslider__track {
+  display: flex;
+  gap: 1.5rem;
+  height: 100%;
+  padding: 1.5rem 3.5rem 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.rc-cardslider__track::-webkit-scrollbar {
+  display: none;
+}
+
+.rc-cardslider__item a {
+  text-decoration: none;
+}
+
+/* ============================ Card ============================ */
+.rc-card {
+  /* Light text + accents by default (suited to the colourful variants). */
+  --rc-blob-fill: rgba(255, 255, 255, 0.9);
+  --rc-card-fg: #ffffff;
+  --rc-card-muted: rgba(255, 255, 255, 0.85);
+  --rc-card-tag-bg: rgba(0, 0, 0, 0.2);
+  --rc-card-tag-fg: #ffffff;
+  --rc-card-track: rgba(255, 255, 255, 0.3);
+  --rc-card-fill: #ffffff;
+
+  position: relative;
+  height: 180px;
+  width: 350px;
+  padding: 1.25rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.rc-card__blob {
+  position: absolute;
+  height: 10rem;
+  width: 12.5rem;
+  pointer-events: none;
+}
+
+.rc-card__tag {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--rc-card-tag-fg);
+  background: var(--rc-card-tag-bg);
+  border-radius: 0.5rem;
+}
+
+.rc-card__title {
+  position: relative;
+  z-index: 1;
+  margin: 0.75rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--rc-card-fg);
+}
+
+.rc-card__progress {
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+  height: 0.25rem;
+  width: 100%;
+  background: var(--rc-card-track);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.rc-card__progress-fill {
+  height: 100%;
+  width: 90%;
+  background: var(--rc-card-fill);
+  border-radius: 9999px;
+}
+
+.rc-card__desc {
+  position: relative;
+  z-index: 1;
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--rc-card-muted);
+}
+
+.rc-card__button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  display: inline-flex;
+  padding: 0.5rem;
+  color: var(--rc-card-fg);
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+/* ------------------------- Variants ------------------------- */
+
+/* Gradient (default) — the original look. */
+.rc-card--gradient {
+  background: linear-gradient(135deg, var(--rc-from), var(--rc-to));
+}
+
+/* Glass — frosted film layered over the gradient. */
+.rc-card--glass {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.04)),
+    linear-gradient(135deg, var(--rc-from), var(--rc-to));
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(3px);
+}
+.rc-card--glass .rc-card__tag {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+/* Solid — flat single colour. */
+.rc-card--solid {
+  background: var(--rc-from);
+}
+
+/* Outline — light card, coloured border + accents, dark text. */
+.rc-card--outline {
+  --rc-blob-fill: rgba(17, 24, 39, 0.05);
+  --rc-card-fg: #111827;
+  --rc-card-muted: #4b5563;
+  --rc-card-tag-bg: var(--rc-from);
+  --rc-card-tag-fg: #ffffff;
+  --rc-card-track: rgba(17, 24, 39, 0.1);
+  --rc-card-fill: linear-gradient(90deg, var(--rc-from), var(--rc-to));
+  background: #ffffff;
+  border: 2px solid var(--rc-from);
+}
+.rc-card--outline .rc-card__title {
+  color: var(--rc-from);
+}
+.rc-card--outline .rc-card__button {
+  color: var(--rc-from);
+  background: rgba(17, 24, 39, 0.06);
+}
+
+/* Dark — deep background, neon accent from the palette. */
+.rc-card--dark {
+  --rc-blob-fill: rgba(255, 255, 255, 0.06);
+  --rc-card-fg: #f8fafc;
+  --rc-card-muted: rgba(248, 250, 252, 0.7);
+  --rc-card-tag-bg: rgba(255, 255, 255, 0.08);
+  --rc-card-tag-fg: var(--rc-to);
+  --rc-card-track: rgba(255, 255, 255, 0.12);
+  --rc-card-fill: linear-gradient(90deg, var(--rc-from), var(--rc-to));
+  background: #0f172a;
+  border: 1px solid var(--rc-from);
+  box-shadow: 0 0 28px -8px var(--rc-from);
+}
+.rc-card--dark .rc-card__title {
+  color: var(--rc-to);
+}
+.rc-card--dark .rc-card__button {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Minimal — clean white card, gradient only as a subtle accent. */
+.rc-card--minimal {
+  --rc-blob-fill: rgba(17, 24, 39, 0.04);
+  --rc-card-fg: #111827;
+  --rc-card-muted: #6b7280;
+  --rc-card-tag-bg: #f3f4f6;
+  --rc-card-tag-fg: #374151;
+  --rc-card-track: #f3f4f6;
+  --rc-card-fill: linear-gradient(90deg, var(--rc-from), var(--rc-to));
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.2);
+}
+.rc-card--minimal .rc-card__button {
+  color: var(--rc-from);
+  background: #f3f4f6;
+}

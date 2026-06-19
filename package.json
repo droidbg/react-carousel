@@ -1,6 +1,6 @@
 {
   "name": "react-carousel-latest",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A headless, accessible, tree-shakeable React carousel with a compound-component API (and a backwards-compatible CardSlider preset).",
   "type": "module",
   "sideEffects": false,

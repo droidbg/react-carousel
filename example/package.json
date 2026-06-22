@@ -1,34 +1,33 @@
 {
-  "name": "example",
+  "name": "react-carousel-example",
   "version": "1.0.0",
+  "private": true,
+  "description": "Documentation site and live demos for react-carousel-latest.",
+  "author": "Binni G.",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "parcel index.html",
     "dev": "rm -rf .parcel-cache && parcel index.html",
-    "build": "rm -rf dist .parcel-cache && parcel build index.html"
+    "build": "rm -rf dist .parcel-cache && parcel build index.html",
+    "typecheck": "tsc --noEmit"
   },
-  "author": "Example",
-  "license": "Apache-2.0",
-  "description": "This is example",
   "//browserslist": "Targets without import-map support so Parcel inlines asset URLs via its classic runtime instead of import.meta.resolve.",
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, Safari >= 14, not dead",
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.3",
-    "parcel": "^2.16.4",
-    "tailwindcss": "^4.1.3",
-    "typescript": "^5.8.3"
-  },
   "dependencies": {
     "framer-motion": "^12.6.3",
-    "lucide-react": "^0.487.0",
     "react": "^19.1.0",
     "react-carousel-latest": "file:..",
     "react-dom": "^19.1.0"
   },
+  "devDependencies": {
+    "parcel": "^2.16.4",
+    "typescript": "^5.8.3"
+  },
+  "//alias": "Force a single React (and framer-motion) instance shared with the linked library source, so hooks don't break across the workspace boundary.",
   "alias": {
     "react": "./node_modules/react",
     "react/jsx-runtime": "./node_modules/react/jsx-runtime",
     "react-dom": "./node_modules/react-dom",
-    "framer-motion": "./node_modules/framer-motion",
-    "lucide-react": "./node_modules/lucide-react"
+    "framer-motion": "./node_modules/framer-motion"
   }
 }

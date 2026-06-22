@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "./icons";
 import Card, { type CardVariant } from "./Card";
 import { getPalettes } from "./gradient";
 import type { ShapeOption } from "./Blobs";

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import { useMemo } from "react";
 import Blobs, { type ShapeOption } from "./Blobs";
+import { ArrowUpRight } from "./icons";
 import type { CSSProperties } from "react";
 
 /** Visual design presets for {@link Card}. */

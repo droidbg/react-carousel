@@ -14,9 +14,14 @@
  */
 
 .rc-cardslider {
+  /* Card row height — arrows are centred on THIS, not on the container's full
+     height, so host layouts that stretch the slider can't push them off. */
+  --rc-cs-card-h: 180px;
+  --rc-cs-pad-top: 1.5rem;
   position: relative;
   width: 100%;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .rc-cardslider__overlay {
@@ -40,11 +45,14 @@
 
 .rc-cardslider__arrow {
   position: absolute;
-  top: 50%;
+  /* Anchor to the card row's vertical centre (top padding + half a card),
+     not 50% of the container — robust no matter how tall the host makes it. */
+  top: calc(var(--rc-cs-pad-top, 1.5rem) + var(--rc-cs-card-h, 180px) / 2);
   z-index: 15;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   width: 2.75rem;
   height: 2.75rem;
   color: #111827;
@@ -73,8 +81,10 @@
 .rc-cardslider__track {
   display: flex;
   gap: 1.5rem;
-  height: 100%;
-  padding: 1.5rem 3.5rem 2rem;
+  box-sizing: border-box;
+  /* No height:100% — the row is sized by the cards, so a host-imposed height
+     on the slider can never stretch the track and shift the cards. */
+  padding: var(--rc-cs-pad-top, 1.5rem) 3.5rem 2rem;
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -84,7 +94,13 @@
   display: none;
 }
 
+.rc-cardslider__item {
+  /* Don't let flex shrink the cards — keep them full size and let the row scroll. */
+  flex: 0 0 auto;
+}
+
 .rc-cardslider__item a {
+  display: block;
   text-decoration: none;
 }
 
@@ -100,13 +116,21 @@
   --rc-card-fill: #ffffff;
 
   position: relative;
-  height: 180px;
+  box-sizing: border-box;
+  height: var(--rc-cs-card-h, 180px);
   width: 350px;
   padding: 1.25rem;
   overflow: hidden;
   border-radius: 1rem;
   box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  /* Self-contained typography + alignment so the card looks identical in any
+     app, regardless of the host's global font or text-align (e.g. CRA/Vite
+     templates default to text-align:center). The named fonts are used when
+     present (e.g. the docs site) and fall back to system fonts everywhere else. */
+  text-align: left;
+  font-family: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.4;
 }
 
 .rc-card__blob {
@@ -132,6 +156,8 @@
   position: relative;
   z-index: 1;
   margin: 0.75rem 0 0;
+  /* Serif display face; falls back to a system serif when Fraunces isn't loaded. */
+  font-family: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--rc-card-fg);

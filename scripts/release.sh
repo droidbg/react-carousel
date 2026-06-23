@@ -6,7 +6,7 @@
 #   npm run release
 #
 # The release is four idempotent steps:
-#   1) commit + tag       2) npm publish       3) push branch + tag       4) GitHub release
+#   1) changelog + commit + tag   2) npm publish   3) push branch + tag   4) GitHub release
 #
 # Each step checks whether it is already done and skips it, so if a run fails
 # part-way (e.g. a publish 2FA timeout) you can simply re-run the script: it
@@ -33,6 +33,35 @@ gh_release_exists() { gh_available && gh release view "$1" >/dev/null 2>&1; }   
 # A version is fully released only when published, pushed, and (if gh is set up)
 # released on GitHub. Without gh we can't verify/create that step, so don't gate on it.
 fully_released()    { is_published "$1" && remote_tag_exists "v$1" && { ! gh_available || gh_release_exists "v$1"; }; }
+
+# ---- changelog -----------------------------------------------------------
+# Promote the accumulated "## [Unreleased]" entries to a dated "## [version]"
+# section, leave a fresh empty [Unreleased] above it, and refresh the compare
+# links at the bottom. Idempotent: a no-op if the version section already exists
+# or there is no CHANGELOG.md / no [Unreleased] heading.
+stamp_changelog() { # $1 = new version, $2 = previous version
+  local file="CHANGELOG.md" today origin slug repo
+  [ -f "$file" ] || { warn "No CHANGELOG.md — skipping changelog update."; return 0; }
+  today="$(date +%Y-%m-%d)"
+  origin="$(git remote get-url origin 2>/dev/null || echo '')"
+  slug="$(echo "$origin" | sed -E 's#(git@github.com:|https://github.com/)##; s#\.git$##')"
+  repo="https://github.com/$slug"
+  CL_VERSION="$1" CL_PREV="$2" CL_DATE="$today" CL_REPO="$repo" node - <<'NODE'
+const fs = require("fs");
+const file = "CHANGELOG.md";
+const { CL_VERSION: version, CL_PREV: prev, CL_DATE: date, CL_REPO: repo } = process.env;
+let s = fs.readFileSync(file, "utf8");
+if (s.includes(`## [${version}]`)) process.exit(0);     // already stamped
+if (!/^## \[Unreleased\]/m.test(s)) process.exit(0);    // unexpected format — leave it alone
+s = s.replace(/^(## \[Unreleased\])[ \t]*$/m, `$1\n\n## [${version}] - ${date}`);
+if (repo && /^\[Unreleased\]:/m.test(s)) {
+  s = s.replace(/^\[Unreleased\]:.*$/m, `[Unreleased]: ${repo}/compare/v${version}...HEAD`);
+  s = s.replace(/^(\[Unreleased\]:.*\n)/m, `$1[${version}]: ${repo}/compare/v${prev}...v${version}\n`);
+}
+fs.writeFileSync(file, s);
+NODE
+  ok "Updated CHANGELOG.md for $1."
+}
 
 # ---- pre-flight ----------------------------------------------------------
 command -v node >/dev/null || { err "node not found"; exit 1; }
@@ -141,25 +170,27 @@ echo
 echo "$(bold "Plan")  ($([ "$RESUME" = "true" ] && echo resume || echo new release))"
 echo "  version    : $CURRENT → $(bold "$VERSION")"
 echo "  npm tag    : $DIST_TAG    prerelease: $PRERELEASE    branch: $BRANCH"
-echo "  1) commit + tag    : $S_TAG"
-echo "  2) npm publish     : $S_PUB"
-echo "  3) push branch+tag : $S_PUSH"
-echo "  4) GitHub release  : $S_GH"
+echo "  1) changelog + commit + tag : $S_TAG"
+echo "  2) npm publish              : $S_PUB"
+echo "  3) push branch+tag          : $S_PUSH"
+echo "  4) GitHub release           : $S_GH"
 echo
 case "$(ask "Proceed? [y/N]: " n)" in y|Y|yes) ;; *) warn "Aborted."; revert_bump; exit 0;; esac
 
 # Once a step starts mutating remote state, a failure is resumable — just re-run.
 trap 'err "A step failed. Fix the issue and re-run \"npm run release\" — it will resume from the first incomplete step."' ERR
 
-# ---- step 1: commit + tag ------------------------------------------------
+# ---- step 1: changelog + commit + tag ------------------------------------
 if local_tag_exists "$TAG"; then
-  ok "1/4  commit + tag $TAG — already present, skipping."
+  ok "1/4  changelog + commit + tag $TAG — already present, skipping."
 else
+  stamp_changelog "$VERSION" "$CURRENT"
   git add package.json package-lock.json 2>/dev/null || git add package.json
+  [ -f CHANGELOG.md ] && git add CHANGELOG.md
   git commit -m "release: $TAG"
   git tag -a "$TAG" -m "$TAG"
   BUMPED="false"   # now committed; nothing to revert
-  ok "1/4  committed and tagged $TAG."
+  ok "1/4  stamped changelog, committed and tagged $TAG."
 fi
 
 # ---- step 2: publish to npm ----------------------------------------------

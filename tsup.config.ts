@@ -16,11 +16,23 @@ export default defineConfig({
   // consumer dedupes a single copy. tsup auto-externalises dependencies +
   // peerDependencies; the jsx-runtime subpath is listed explicitly to be safe.
   external: ["react", "react-dom", "react/jsx-runtime"],
-  // CSS is shipped as standalone files (not imported by the JS) so the package
-  // stays side-effect-free and fully tree-shakeable. We also concatenate the
-  // two into `bundle.css` (base first, then presets) so consumers who use a
-  // preset can do a single import instead of two. Safe to concat: neither file
-  // uses @charset / @import / url(), so there are no rule-ordering constraints.
-  onSuccess:
-    "cp src/styles/carousel.css dist/styles.css && cp src/presets/presets.css dist/presets.css && cat src/styles/carousel.css src/presets/presets.css > dist/bundle.css",
+  // Post-build: ship the standalone CSS (kept out of the JS so the package
+  // stays side-effect-free + tree-shakeable), concatenate `bundle.css` (base
+  // then presets — neither uses @charset/@import/url(), so order is safe), and
+  // prepend a "use client" directive to each JS entry so the package works in
+  // Next.js App Router / RSC trees. The directive is added here (not in source)
+  // because bundlers strip it from the thin re-export entry modules.
+  onSuccess: async () => {
+    const { copyFileSync, readFileSync, writeFileSync } = await import("node:fs");
+    copyFileSync("src/styles/carousel.css", "dist/styles.css");
+    copyFileSync("src/presets/presets.css", "dist/presets.css");
+    writeFileSync(
+      "dist/bundle.css",
+      readFileSync("src/styles/carousel.css", "utf8") +
+        readFileSync("src/presets/presets.css", "utf8"),
+    );
+    for (const file of ["dist/index.js", "dist/index.cjs", "dist/presets.js", "dist/presets.cjs"]) {
+      writeFileSync(file, '"use client";\n' + readFileSync(file, "utf8"));
+    }
+  },
 });

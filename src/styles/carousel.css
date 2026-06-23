@@ -38,6 +38,14 @@
 }
 
 /*
+ * Vertical carousels need a bounded height so the stacked slides can be
+ * clipped and translated. Override --rc-viewport-height to taste.
+ */
+.rc-viewport[data-orientation="vertical"] {
+  height: var(--rc-viewport-height, 360px);
+}
+
+/*
  * The moving strip. The track box is viewport-wide, so a translate of one
  * slide-size (+ gap) advances exactly one slide — whether --rc-slide-size is a
  * percentage (multiple cards per view) or a fixed width.
@@ -59,6 +67,9 @@
 
 .rc-track[data-orientation="vertical"] {
   flex-direction: column;
+  /* Fill the bounded viewport so a translate of one slide-size advances one
+     slide on the vertical axis, mirroring the horizontal case. */
+  height: 100%;
   transform: translate3d(
     0,
     calc(

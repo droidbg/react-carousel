@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { Orientation } from "./types";
+import type { DragInfo, Orientation } from "./types";
 
 interface SwipeParams {
   trackRef: React.RefObject<HTMLElement | null>;
@@ -8,6 +8,10 @@ interface SwipeParams {
   onNext: () => void;
   /** Minimum drag distance (px) to commit a slide change. Default `50`. */
   threshold?: number;
+  /** Called when a pointer swipe begins. */
+  onSwipeStart?: () => void;
+  /** Called when a pointer swipe ends, with the resolved drag info. */
+  onSwipeEnd?: (info: DragInfo) => void;
 }
 
 /**
@@ -25,9 +29,11 @@ export function useSwipe({
   onPrev,
   onNext,
   threshold = 50,
+  onSwipeStart,
+  onSwipeEnd,
 }: SwipeParams): void {
-  const handlers = useRef({ onPrev, onNext });
-  handlers.current = { onPrev, onNext };
+  const handlers = useRef({ onPrev, onNext, onSwipeStart, onSwipeEnd });
+  handlers.current = { onPrev, onNext, onSwipeStart, onSwipeEnd };
 
   useEffect(() => {
     const track = trackRef.current;
@@ -54,6 +60,7 @@ export function useSwipe({
       delta = 0;
       track.setAttribute("data-dragging", "true");
       track.setPointerCapture(event.pointerId);
+      handlers.current.onSwipeStart?.();
     };
 
     const onPointerMove = (event: PointerEvent) => {
@@ -71,8 +78,13 @@ export function useSwipe({
       if (track.hasPointerCapture(event.pointerId)) {
         track.releasePointerCapture(event.pointerId);
       }
-      if (Math.abs(delta) > threshold) {
-        // Dragging the content toward the start reveals the next slide.
+      const committed = Math.abs(delta) > threshold;
+      // Dragging the content toward the start reveals the next slide.
+      handlers.current.onSwipeEnd?.({
+        delta,
+        direction: committed ? (delta < 0 ? "next" : "prev") : "none",
+      });
+      if (committed) {
         delta < 0 ? handlers.current.onNext() : handlers.current.onPrev();
       }
     };

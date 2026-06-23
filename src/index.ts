@@ -29,10 +29,14 @@ export type {
 export { useCarousel } from "./core/useCarousel";
 export type {
   CarouselApi,
+  CarouselHandle,
   CarouselOptions,
   CarouselState,
   CarouselAction,
   Orientation,
+  ResponsiveOptions,
+  DragInfo,
+  DragDirection,
 } from "./core/types";
 
 // --- Preset sliders ---

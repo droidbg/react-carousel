@@ -9,6 +9,23 @@
 
 export type Orientation = "horizontal" | "vertical";
 
+/** Resolved direction of a pointer drag. */
+export type DragDirection = "prev" | "next" | "none";
+
+/** Details reported by {@link CarouselOptions.onDragEnd}. */
+export interface DragInfo {
+  /** Signed pixel distance dragged (negative = toward the next slide). */
+  delta: number;
+  /** Which way the drag resolved, given the threshold. */
+  direction: DragDirection;
+}
+
+/** Per-breakpoint overrides applied at or above a given min-width (px). */
+export interface ResponsiveOptions {
+  slidesPerView?: number;
+  slidesToScroll?: number;
+}
+
 /** Options accepted by {@link useCarousel} and the `<Carousel>` root. */
 export interface CarouselOptions {
   /** Total number of slides the carousel manages. */
@@ -23,16 +40,35 @@ export interface CarouselOptions {
   autoplayInterval?: number;
   /** Slides advanced per prev/next call. Default `1`. */
   slidesToScroll?: number;
+  /**
+   * How many slides are visible at once. Default `1`. Sets `--rc-slide-size`
+   * to `calc((100% - (n-1) * gap) / n)` and bounds navigation so the last
+   * slide can't be scrolled past on its own.
+   */
+  slidesPerView?: number;
+  /**
+   * Responsive overrides keyed by min-width in px, e.g.
+   * `{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }`.
+   * The largest matching breakpoint wins.
+   */
+  breakpoints?: Record<number, ResponsiveOptions>;
   /** Layout axis. Default `"horizontal"`. */
   orientation?: Orientation;
   /** Fired whenever the active slide changes (programmatic or gesture). */
   onIndexChange?: (index: number) => void;
+  /** Fired after a slide transition settles (or immediately when motion is off). */
+  onSettle?: (index: number) => void;
+  /** Fired when a pointer swipe begins. */
+  onSwipeStart?: () => void;
+  /** Fired when a pointer swipe ends, with the resolved drag info. */
+  onSwipeEnd?: (info: DragInfo) => void;
 }
 
 /** The serialisable state owned by the reducer. */
 export interface CarouselState {
   activeIndex: number;
   slidesCount: number;
+  slidesPerView: number;
   isPlaying: boolean;
 }
 
@@ -42,6 +78,7 @@ export type CarouselAction =
   | { type: "PREV"; step: number; loop: boolean }
   | { type: "GO_TO"; index: number }
   | { type: "SET_COUNT"; slidesCount: number }
+  | { type: "SET_SLIDES_PER_VIEW"; slidesPerView: number }
   | { type: "SET_PLAYING"; isPlaying: boolean };
 
 /**
@@ -61,6 +98,8 @@ export interface CarouselApi {
   canNext: boolean;
   /** Resolved orientation. */
   orientation: Orientation;
+  /** Resolved slides-per-view (after breakpoints). Default `1`. */
+  slidesPerView: number;
 
   next: () => void;
   prev: () => void;
@@ -72,4 +111,19 @@ export interface CarouselApi {
   trackRef: React.RefObject<HTMLDivElement | null>;
   /** Ref for the outer region element (keyboard + autoplay-pause surface). */
   rootRef: React.RefObject<HTMLDivElement | null>;
+}
+
+/**
+ * Imperative handle exposed via a `ref` on `<Carousel>` — lets a parent drive
+ * navigation without consuming the headless hook directly.
+ */
+export interface CarouselHandle {
+  activeIndex: number;
+  canPrev: boolean;
+  canNext: boolean;
+  next: () => void;
+  prev: () => void;
+  goTo: (index: number) => void;
+  play: () => void;
+  pause: () => void;
 }

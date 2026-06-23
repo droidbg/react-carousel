@@ -15,12 +15,15 @@
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, Safari >= 14, not dead",
   "dependencies": {
     "framer-motion": "^12.6.3",
-    "react": "^19.1.0",
+    "react": "^19.2.0",
     "react-carousel-latest": "file:..",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "babel-plugin-react-compiler": "^1.0.0",
     "parcel": "^2.16.4",
+    "sharp": "^0.33.5",
     "typescript": "^5.8.3"
   },
   "//alias": "Force a single React (and framer-motion) instance shared with the linked library source, so hooks don't break across the workspace boundary.",

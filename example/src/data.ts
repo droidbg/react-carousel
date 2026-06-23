@@ -28,13 +28,17 @@ export const cardSamples: CardSample[] = [
  * The first argument to `new URL(..., import.meta.url)` MUST be a static string
  * literal — Parcel resolves it to the bundled asset at build time. A computed
  * path (template literal / variable) is left untransformed and breaks to a
- * `file://` URL at runtime, so keep these spelled out. */
+ * `file://` URL at runtime, so keep these spelled out.
+ *
+ * The `?as=webp&width=1280&quality=72` query tells Parcel's image transformer
+ * (sharp) to emit a resized WebP at build time — the 1536px JPEGs become much
+ * smaller WebP files than the slider ever needs, with no manual conversion. */
 export const photoSlides: PhotoSlide[] = [
-  { src: new URL("../assets/01.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 1" },
-  { src: new URL("../assets/02.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 2" },
-  { src: new URL("../assets/03.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 3" },
-  { src: new URL("../assets/04.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 4" },
-  { src: new URL("../assets/05.jpg", import.meta.url).href, alt: "Abstract waves", caption: "Slide 5" },
+  { src: new URL("../assets/01.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 1" },
+  { src: new URL("../assets/02.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 2" },
+  { src: new URL("../assets/03.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 3" },
+  { src: new URL("../assets/04.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 4" },
+  { src: new URL("../assets/05.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 5" },
 ];
 
 /** The six card-preset designs, each demoed in the gallery. */
@@ -57,6 +61,11 @@ export const nav: NavGroup[] = [
 
 /** Flat list of every section id, in page order — used for scroll-spy. */
 export const allSectionIds = nav.flatMap((g) => g.items.map(([id]) => id));
+
+/** id → sidebar label, used to build the document title for the active section. */
+export const sectionLabels: Record<string, string> = Object.fromEntries(
+  nav.flatMap((g) => g.items),
+);
 
 /** `<Carousel>` props, rendered as a reference table. `[prop, type, description]`. */
 export const carouselProps: [prop: string, type: string, description: string][] = [

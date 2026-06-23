@@ -5,6 +5,9 @@
  *   import "react-carousel-latest/styles.css";
  *   import "react-carousel-latest/presets.css";
  *
+ * Or pull both in with a single import:
+ *   import "react-carousel-latest/bundle.css";
+ *
  * Framework-free CSS — no Tailwind. Cards read their palette from the
  * --rc-from / --rc-to custom properties set inline by <Card>, so a single set
  * of colours drives every design variant.

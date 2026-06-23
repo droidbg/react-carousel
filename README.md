@@ -37,6 +37,9 @@ import "react-carousel-latest/styles.css";
 import "react-carousel-latest/presets.css";
 ```
 
+> Using a preset? You can import both in one line instead:
+> `import "react-carousel-latest/bundle.css";`
+
 ---
 
 ## 🚀 Quick start
@@ -45,8 +48,7 @@ A full-bleed image carousel with the staggered slice transition:
 
 ```tsx
 import { SlicerSlider } from "react-carousel-latest/presets";
-import "react-carousel-latest/styles.css";
-import "react-carousel-latest/presets.css";
+import "react-carousel-latest/bundle.css";
 
 const slides = [
   { src: "/photos/01.jpg", caption: "Slide 1" },

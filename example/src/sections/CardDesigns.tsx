@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { CardSlider, palettes } from "../lib";
 import type { CardVariant } from "../lib";
 import { Section } from "../components/Section";
@@ -9,6 +9,9 @@ import { variantSliderCode } from "../snippets";
 
 export function CardDesigns() {
   const [variant, setVariant] = useState<CardVariant>("gradient");
+  // Switching variant re-renders the whole CardSlider (5 motion cards). Mark it
+  // non-urgent so rapid clicks stay responsive and React can interrupt.
+  const [isPending, startTransition] = useTransition();
 
   return (
     <Section id="designs" num="06 / Presets" title="Card designs">
@@ -24,12 +27,15 @@ export function CardDesigns() {
       <p>Switch the <code>variant</code> prop on a single <code>&lt;CardSlider&gt;</code> — the snippet updates with it:</p>
       <div className="switcher">
         {designs.map((d) => (
-          <button key={d.variant} aria-pressed={variant === d.variant} onClick={() => setVariant(d.variant)}>
+          <button key={d.variant} aria-pressed={variant === d.variant} onClick={() => startTransition(() => setVariant(d.variant))}>
             {d.variant}
           </button>
         ))}
       </div>
-      <Demo code={variantSliderCode(variant)}>
+      <Demo
+        code={variantSliderCode(variant)}
+        style={{ opacity: isPending ? 0.65 : 1, transition: "opacity 0.2s ease" }}
+      >
         <CardSlider shape="star" randomBackground variant={variant} slides={cardSamples} />
       </Demo>
     </Section>

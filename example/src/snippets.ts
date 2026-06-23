@@ -208,3 +208,86 @@ export const THEMING_CODE = `.rc-root {
   --rc-slide-gap: 1.25rem;
   --rc-accent: #ff6a3d;
 }`;
+
+/* ----------------------------- New in 2.1 ----------------------------- */
+
+export const RESPONSIVE_CODE = `import { Carousel } from "react-carousel-latest";
+import "react-carousel-latest/styles.css";
+
+// 1 slide on phones, 2 on tablets, 3 on desktop — the largest match wins.
+export function Gallery() {
+  return (
+    <Carousel
+      slidesCount={panels.length}
+      slidesPerView={1}
+      breakpoints={{ 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}
+    >
+      <Carousel.Button dir="prev" />
+      <Carousel.Track>
+        {panels.map((p, i) => (
+          <Carousel.Slide key={i} index={i}>{p}</Carousel.Slide>
+        ))}
+      </Carousel.Track>
+      <Carousel.Button dir="next" />
+      <Carousel.Dots />
+    </Carousel>
+  );
+}`;
+
+export const VERTICAL_CODE = `import { Carousel } from "react-carousel-latest";
+import "react-carousel-latest/styles.css";
+
+export function VerticalGallery() {
+  return (
+    <Carousel
+      slidesCount={panels.length}
+      orientation="vertical"
+      // vertical needs a bounded height
+      style={{ "--rc-viewport-height": "320px" } as React.CSSProperties}
+    >
+      <Carousel.Button dir="prev" />
+      <Carousel.Track>
+        {panels.map((p, i) => (
+          <Carousel.Slide key={i} index={i}>{p}</Carousel.Slide>
+        ))}
+      </Carousel.Track>
+      <Carousel.Button dir="next" />
+      <Carousel.Dots />
+    </Carousel>
+  );
+}`;
+
+export const CONTROL_CODE = `import { useRef, useState } from "react";
+import { Carousel } from "react-carousel-latest";
+import type { CarouselHandle, DragInfo } from "react-carousel-latest";
+import "react-carousel-latest/styles.css";
+
+export function Controlled() {
+  const ref = useRef<CarouselHandle>(null);
+  const [status, setStatus] = useState("ready");
+
+  return (
+    <>
+      <div className="toolbar">
+        <button onClick={() => ref.current?.prev()}>Prev</button>
+        <button onClick={() => ref.current?.goTo(0)}>First</button>
+        <button onClick={() => ref.current?.next()}>Next</button>
+      </div>
+
+      <Carousel
+        ref={ref}
+        slidesCount={panels.length}
+        onSettle={(i) => setStatus(\`settled on \${i + 1}\`)}
+        onSwipeEnd={(d: DragInfo) => setStatus(\`swiped \${d.direction}\`)}
+      >
+        <Carousel.Track>
+          {panels.map((p, i) => (
+            <Carousel.Slide key={i} index={i}>{p}</Carousel.Slide>
+          ))}
+        </Carousel.Track>
+      </Carousel>
+
+      <p>{status}</p>
+    </>
+  );
+}`;

@@ -69,11 +69,13 @@ export default function App() {
 
 - **Headless core** — all logic in a `useCarousel` hook; bring your own markup.
 - **Compound components** — `Carousel.Track / Slide / Button / Dots / PlayPause`.
+- **Responsive** — `slidesPerView` + `breakpoints` to show several slides at once.
+- **Imperative control** — drive `next` / `prev` / `goTo` via a `ref` on `<Carousel>`.
 - **Ready-made presets** — `CardSlider`, `ImageSlider`, and `SlicerSlider`.
 - **Interactions** — keyboard (arrows / Home / End), touch & pointer swipe, and autoplay that pauses on hover/focus and respects `prefers-reduced-motion`.
 - **Accessible** — region/slide roles, `aria-live`, labelled controls.
 - **No CSS framework required** — bundled, themeable CSS. No Tailwind.
-- **Dual ESM + CJS**, full TypeScript types, `sideEffects: false`.
+- **Next.js / RSC ready** — ships `"use client"`; **Dual ESM + CJS**, full TypeScript types, `sideEffects: false`.
 
 ---
 

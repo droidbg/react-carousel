@@ -9,7 +9,7 @@
  * specifiers below to `react-carousel-latest` / `react-carousel-latest/presets`.
  */
 export { Carousel, CardSlider, ImageSlider, SlicerSlider } from "../../src";
-export type { CardVariant, ShapeOption } from "../../src";
+export type { CardVariant, ShapeOption, CarouselHandle, DragInfo } from "../../src";
 export { default as Card } from "../../src/presets/Card";
 export { palettes } from "../../src/presets/gradient";
 export type { Palette } from "../../src/presets/gradient";

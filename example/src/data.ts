@@ -14,6 +14,16 @@ export const scenes: Scene[] = [
   { title: "Forest", sub: "Mist between ancient pines", bg: "linear-gradient(135deg,#0ba360,#3cba92)" },
 ];
 
+/** Six simple numbered panels for the responsive / vertical / control demos. */
+export const panels: Scene[] = [
+  { title: "01", sub: "Panel one", bg: "linear-gradient(135deg,#6a0572,#ab83a1)" },
+  { title: "02", sub: "Panel two", bg: "linear-gradient(135deg,#16a085,#1abc9c)" },
+  { title: "03", sub: "Panel three", bg: "linear-gradient(135deg,#d35400,#e67e22)" },
+  { title: "04", sub: "Panel four", bg: "linear-gradient(135deg,#8e2de2,#4a00e0)" },
+  { title: "05", sub: "Panel five", bg: "linear-gradient(135deg,#4facfe,#00f2fe)" },
+  { title: "06", sub: "Panel six", bg: "linear-gradient(135deg,#0ba360,#3cba92)" },
+];
+
 /** Sample cards for the multi-card and CardSlider demos. */
 export const cardSamples: CardSample[] = [
   { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower in style." },
@@ -57,6 +67,7 @@ export const nav: NavGroup[] = [
   { group: "Carousel", items: [["api", "Props"], ["controls", "Controls"], ["patterns", "Patterns"]] },
   { group: "Presets", items: [["designs", "Card designs"], ["image", "Image slider"], ["slicer", "Slicer slider"], ["cardslider", "CardSlider"]] },
   { group: "More", items: [["customslides", "Custom slides"], ["theming", "Theming"], ["a11y", "Accessibility"]] },
+  { group: "New in 2.1", items: [["responsive", "Responsive"], ["vertical", "Vertical"], ["control", "Programmatic control"]] },
 ];
 
 /** Flat list of every section id, in page order — used for scroll-spy. */
@@ -75,8 +86,12 @@ export const carouselProps: [prop: string, type: string, description: string][] 
   ["autoplay", "boolean = false", "Auto-advance on a timer."],
   ["autoplayInterval", "number = 4000", "Autoplay delay in milliseconds."],
   ["slidesToScroll", "number = 1", "Slides advanced per prev / next."],
+  ["slidesPerView", "number = 1", "How many slides are visible at once (sets --rc-slide-size)."],
+  ["breakpoints", "Record<number, …>", "Per-min-width overrides for slidesPerView / slidesToScroll."],
   ["orientation", '"horizontal" | "vertical"', "Layout axis. Default horizontal."],
   ["onIndexChange", "(i: number) => void", "Fires whenever the active slide changes."],
+  ["onSettle", "(i: number) => void", "Fires after a slide transition settles."],
+  ["onSwipeEnd", "(info) => void", "Fires when a pointer swipe ends ({ delta, direction })."],
   ["label", 'string = "Carousel"', "Accessible name for the region."],
 ];
 
@@ -84,6 +99,7 @@ export const carouselProps: [prop: string, type: string, description: string][] 
 export const cssVars: [name: string, description: string][] = [
   ["--rc-slide-size", "Slide width — 100% for one-per-view, 350px / 33% for cards."],
   ["--rc-slide-gap", "Space between slides."],
+  ["--rc-viewport-height", "Viewport height for vertical carousels. Default 360px."],
   ["--rc-duration", "Transition duration of the track."],
   ["--rc-accent", "Focus ring / dot accent colour."],
   ["--rc-button-bg", "Prev / next button background."],

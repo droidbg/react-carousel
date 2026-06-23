@@ -50,8 +50,7 @@ export const CONTROLS_CODE = `<div className="rc-controls">
 
 export const MULTICARD_CODE = `import { Carousel } from "react-carousel-latest";
 import { Card } from "react-carousel-latest/presets";
-import "react-carousel-latest/styles.css";
-import "react-carousel-latest/presets.css";
+import "react-carousel-latest/bundle.css";
 
 const cards = [
   { title: "Shooting Star", category: "Astronomy", description: "Catch the next meteor shower in style.", from: "#6A0572", to: "#AB83A1" },
@@ -164,8 +163,7 @@ export function Example() {
 }
 
 export const IMAGE_CODE = `import { ImageSlider } from "react-carousel-latest/presets";
-import "react-carousel-latest/styles.css";
-import "react-carousel-latest/presets.css";
+import "react-carousel-latest/bundle.css";
 
 const slides = [
   { src: "/photos/01.jpg", alt: "Abstract waves", caption: "Slide 1" },
@@ -178,8 +176,7 @@ export function Hero() {
 }`;
 
 export const SLICER_CODE = `import { SlicerSlider } from "react-carousel-latest/presets";
-import "react-carousel-latest/styles.css";
-import "react-carousel-latest/presets.css";
+import "react-carousel-latest/bundle.css";
 
 const slides = [
   { src: "/photos/01.jpg", caption: "Slide 1" },

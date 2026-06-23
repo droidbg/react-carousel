@@ -1,0 +1,33 @@
+{
+  "name": "react-carousel-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Isolated test suite for react-carousel-latest. Its dev/test deps (incl. the Playwright browser) live here, never in the published library.",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:browser": "vitest run --config vitest.browser.config.ts",
+    "test:demo": "vitest run --config vitest.demo.config.ts"
+  },
+  "dependencies": {
+    "framer-motion": "^12.6.3",
+    "react": "^19.2.0",
+    "react-carousel-latest": "file:..",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitest/browser": "^4.1.9",
+    "@vitest/browser-playwright": "^4.1.9",
+    "jsdom": "^29.1.1",
+    "playwright": "^1.61.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  }
+}

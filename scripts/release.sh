@@ -29,6 +29,14 @@ if [ -n "$(git status --porcelain)" ]; then
   err "Working tree is dirty. Commit or stash first."; git status --short; exit 1
 fi
 
+# Verify npm auth BEFORE any version bump / commit / tag. Publishing while
+# logged out fails late with a confusing 404 (PUT .../<pkg> Not found), by which
+# point the release commit and tag already exist and the run can't resume.
+if ! NPM_USER="$(npm whoami 2>/dev/null)"; then
+  err "Not logged in to npm. Run 'npm login' first (so 'npm whoami' succeeds)."; exit 1
+fi
+ok "npm: authenticated as $NPM_USER"
+
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 CURRENT="$(node -p "require('./package.json').version")"
 NAME="$(node -p "require('./package.json').name")"

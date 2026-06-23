@@ -10,6 +10,9 @@ import { CardSliderShowcase } from "./CardSliderShowcase";
 import { CustomSlides } from "./CustomSlides";
 import { Theming } from "./Theming";
 import { Accessibility } from "./Accessibility";
+import { Responsive } from "./Responsive";
+import { Vertical } from "./Vertical";
+import { Control } from "./Control";
 
 /**
  * Documentation sections, in page order. The hero (`overview`) is rendered
@@ -30,4 +33,7 @@ export const sections = [
   CustomSlides,
   Theming,
   Accessibility,
+  Responsive,
+  Vertical,
+  Control,
 ];

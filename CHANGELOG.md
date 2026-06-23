@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`slidesPerView` + `breakpoints`** — show multiple slides at once and vary it
+  responsively, e.g. `<Carousel slidesPerView={1} breakpoints={{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>`. Navigation stops at the last full view (no over-scroll).
+- **Imperative `ref` handle on `<Carousel>`** — `next`/`prev`/`goTo`/`play`/`pause`
+  (+ `activeIndex`/`canPrev`/`canNext`) via `CarouselHandle`, for driving the
+  carousel from a parent without the headless hook.
+- **Lifecycle callbacks** — `onSettle(index)` (after the slide transition ends),
+  `onSwipeStart()`, and `onSwipeEnd({ delta, direction })`.
+- **Next.js App Router / RSC support** — the published entries are tagged
+  `"use client"`, so the components can be imported into server-component trees
+  without a wrapper.
+- **Vertical orientation** completed — `--rc-viewport-height` bounds the vertical
+  viewport so `orientation="vertical"` lays out and translates correctly.
+
+### Fixed
+
+- **CardSlider** preset styles are now self-contained (own `box-sizing`,
+  `text-align`, `font-family`) and the arrows are pinned to the card row, so the
+  layout no longer breaks when the host app sets global styles (e.g. centered
+  text or a tall flex shell).
+
 ## [2.0.2] - 2026-06-23
 
 ### Added

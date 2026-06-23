@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { carouselReducer } from "../../src/core/carouselReducer";
 import type { CarouselState } from "../../src/core/types";
 
-const base: CarouselState = { activeIndex: 0, slidesCount: 3, isPlaying: false };
+const base: CarouselState = { activeIndex: 0, slidesCount: 3, slidesPerView: 1, isPlaying: false };
 
 describe("carouselReducer", () => {
   it("NEXT advances by the given step", () => {
@@ -43,5 +43,30 @@ describe("carouselReducer", () => {
 
   it("SET_PLAYING toggles isPlaying", () => {
     expect(carouselReducer(base, { type: "SET_PLAYING", isPlaying: true }).isPlaying).toBe(true);
+  });
+
+  describe("slidesPerView bounds", () => {
+    // 5 slides, 2 per view → the last full page starts at index 3 (maxIndex).
+    const multi: CarouselState = { activeIndex: 0, slidesCount: 5, slidesPerView: 2, isPlaying: false };
+
+    it("NEXT stops at slidesCount - slidesPerView (no over-scroll)", () => {
+      const atMax: CarouselState = { ...multi, activeIndex: 3 };
+      expect(carouselReducer(atMax, { type: "NEXT", step: 1, loop: false })).toBe(atMax);
+    });
+
+    it("GO_TO clamps to maxIndex with slidesPerView", () => {
+      expect(carouselReducer(multi, { type: "GO_TO", index: 99 }).activeIndex).toBe(3);
+    });
+
+    it("SET_SLIDES_PER_VIEW re-clamps the active index", () => {
+      const atEnd: CarouselState = { ...multi, activeIndex: 4, slidesPerView: 1 };
+      const next = carouselReducer(atEnd, { type: "SET_SLIDES_PER_VIEW", slidesPerView: 2 });
+      expect(next.slidesPerView).toBe(2);
+      expect(next.activeIndex).toBe(3); // clamped from 4 to maxIndex (5 - 2)
+    });
+
+    it("SET_SLIDES_PER_VIEW is a no-op when unchanged (same reference)", () => {
+      expect(carouselReducer(multi, { type: "SET_SLIDES_PER_VIEW", slidesPerView: 2 })).toBe(multi);
+    });
   });
 });

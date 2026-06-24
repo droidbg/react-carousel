@@ -4,7 +4,7 @@ import { CONTROLS_CODE } from "../snippets";
 
 export function Controls() {
   return (
-    <Section id="controls" num="04 / Carousel" title="Controls">
+    <Section id="controls" num="09 / Carousel" title="Controls">
       <p>Drop-in controls read state from context — no wiring required. Group secondary controls in a <code>.rc-controls</code> row.</p>
       <div className="table-wrap">
         <table>

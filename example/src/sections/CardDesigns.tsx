@@ -14,7 +14,7 @@ export function CardDesigns() {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <Section id="designs" num="06 / Presets" title="Card designs">
+    <Section id="designs" num="03 / Presets" title="Card designs">
       <p className="lead">The card preset ships six designs. Each is built from the card's two palette colours (<code>--rc-from</code> / <code>--rc-to</code>), so they stay fully themeable. Every card has its own <strong>Get code</strong>.</p>
 
       <div className="gallery">

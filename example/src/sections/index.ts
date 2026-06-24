@@ -22,20 +22,24 @@ import { CubeShowcase } from "./CubeShowcase";
  * the sidebar and scroll-spy.
  */
 export const sections = [
+  // Getting started
   Installation,
   QuickStart,
-  Props,
-  Controls,
-  Patterns,
+  // Presets
   CardDesigns,
   ImageShowcase,
   SlicerShowcase,
+  CubeShowcase,
   CardSliderShowcase,
-  CustomSlides,
-  Theming,
-  Accessibility,
+  // Carousel (core)
+  Props,
+  Controls,
+  Patterns,
   Responsive,
   Vertical,
+  CustomSlides,
   Control,
-  CubeShowcase,
+  // More
+  Theming,
+  Accessibility,
 ];

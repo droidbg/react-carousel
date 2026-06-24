@@ -9,7 +9,7 @@ export function CubeShowcase() {
   const [vertical, setVertical] = useState(false);
 
   return (
-    <Section id="cube" num="16 / New in 2.1" title="Cube slider">
+    <Section id="cube" num="06 / Presets" title="Cube slider">
       <p className="lead">
         Slides are the faces of a 3D cube — navigating rotates it 90° to the next
         face, with subtle face shadows for depth. Spins on either axis and works

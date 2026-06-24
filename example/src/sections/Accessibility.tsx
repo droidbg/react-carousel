@@ -2,7 +2,7 @@ import { Section } from "../components/Section";
 
 export function Accessibility() {
   return (
-    <Section id="a11y" num="12 / More" title="Accessibility">
+    <Section id="a11y" num="16 / More" title="Accessibility">
       <p>Sensible semantics ship by default:</p>
       <ul className="checklist">
         <li>Region with <code>role="region"</code> and <code>aria-roledescription="carousel"</code>.</li>

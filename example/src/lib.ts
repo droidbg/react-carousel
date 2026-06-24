@@ -8,7 +8,7 @@
  * want the example to exercise the published build instead, change only the
  * specifiers below to `react-carousel-latest` / `react-carousel-latest/presets`.
  */
-export { Carousel, CardSlider, ImageSlider, SlicerSlider } from "../../src";
+export { Carousel, CardSlider, ImageSlider, SlicerSlider, CubeSlider } from "../../src";
 export type { CardVariant, ShapeOption, CarouselHandle, DragInfo } from "../../src";
 export { default as Card } from "../../src/presets/Card";
 export { palettes } from "../../src/presets/gradient";

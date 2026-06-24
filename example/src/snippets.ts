@@ -257,6 +257,20 @@ export function VerticalGallery() {
   );
 }`;
 
+export const CUBE_CODE = `import { CubeSlider } from "react-carousel-latest/presets";
+import "react-carousel-latest/bundle.css";
+
+const slides = [
+  { src: "/photos/01.jpg", caption: "Slide 1" },
+  { src: "/photos/02.jpg", caption: "Slide 2" },
+  { src: "/photos/03.jpg", caption: "Slide 3" },
+];
+
+export function Hero() {
+  // vertical spins on the X axis instead; shadow is on by default
+  return <CubeSlider slides={slides} loop height={460} />;
+}`;
+
 export const CONTROL_CODE = `import { useRef, useState } from "react";
 import { Carousel } from "react-carousel-latest";
 import type { CarouselHandle, DragInfo } from "react-carousel-latest";

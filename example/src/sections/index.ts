@@ -13,6 +13,7 @@ import { Accessibility } from "./Accessibility";
 import { Responsive } from "./Responsive";
 import { Vertical } from "./Vertical";
 import { Control } from "./Control";
+import { CubeShowcase } from "./CubeShowcase";
 
 /**
  * Documentation sections, in page order. The hero (`overview`) is rendered
@@ -36,4 +37,5 @@ export const sections = [
   Responsive,
   Vertical,
   Control,
+  CubeShowcase,
 ];

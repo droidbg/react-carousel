@@ -51,6 +51,15 @@ export const photoSlides: PhotoSlide[] = [
   { src: new URL("../assets/05.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 5" },
 ];
 
+/** A different photo set (images 05–09) for the cube demo. */
+export const cubePhotos: PhotoSlide[] = [
+  { src: new URL("../assets/05.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 1" },
+  { src: new URL("../assets/06.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 2" },
+  { src: new URL("../assets/07.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 3" },
+  { src: new URL("../assets/08.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 4" },
+  { src: new URL("../assets/09.jpg?as=webp&width=1280&quality=72", import.meta.url).href, alt: "Abstract waves", caption: "Slide 5" },
+];
+
 /** The six card-preset designs, each demoed in the gallery. */
 export const designs: Design[] = [
   { variant: "gradient", title: "Gradient", desc: "The original — a full diagonal gradient with white type and floating blobs.", shape: "star" },
@@ -67,7 +76,7 @@ export const nav: NavGroup[] = [
   { group: "Carousel", items: [["api", "Props"], ["controls", "Controls"], ["patterns", "Patterns"]] },
   { group: "Presets", items: [["designs", "Card designs"], ["image", "Image slider"], ["slicer", "Slicer slider"], ["cardslider", "CardSlider"]] },
   { group: "More", items: [["customslides", "Custom slides"], ["theming", "Theming"], ["a11y", "Accessibility"]] },
-  { group: "New in 2.1", items: [["responsive", "Responsive"], ["vertical", "Vertical"], ["control", "Programmatic control"]] },
+  { group: "New in 2.1", items: [["responsive", "Responsive"], ["vertical", "Vertical"], ["control", "Programmatic control"], ["cube", "Cube slider"]] },
 ];
 
 /** Flat list of every section id, in page order — used for scroll-spy. */

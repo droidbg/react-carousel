@@ -47,6 +47,8 @@ export { default as ImageSlider } from "./presets/ImageSlider";
 export type { ImageSliderProps, ImageSlide } from "./presets/ImageSlider";
 export { default as SlicerSlider } from "./presets/SlicerSlider";
 export type { SlicerSliderProps, SlicerSlide } from "./presets/SlicerSlider";
+export { default as CubeSlider } from "./presets/CubeSlider";
+export type { CubeSliderProps, CubeSlide } from "./presets/CubeSlider";
 export type { CardVariant } from "./presets/Card";
 export type { ShapeOption } from "./presets/Blobs";
 

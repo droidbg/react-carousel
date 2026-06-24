@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`CubeSlider` preset** — a new image slider whose slides are the faces of a
+  3D cube; navigating rotates it 90°. Horizontal or `vertical`, with optional
+  face/ground shadows, built on the headless core (keyboard / swipe / autoplay
+  for free).
 - **`slidesPerView` + `breakpoints`** — show multiple slides at once and vary it
   responsively, e.g. `<Carousel slidesPerView={1} breakpoints={{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>`. Navigation stops at the last full view (no over-scroll).
 - **Imperative `ref` handle on `<Carousel>`** — `next`/`prev`/`goTo`/`play`/`pause`

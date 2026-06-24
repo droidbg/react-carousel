@@ -6,7 +6,7 @@ import { MULTICARD_CODE } from "../snippets";
 
 export function Patterns() {
   return (
-    <Section id="patterns" num="05 / Carousel" title="Patterns">
+    <Section id="patterns" num="10 / Carousel" title="Patterns">
       <p>One slide or many — the same component. Set <code>--rc-slide-size</code> to a fixed width and several cards share the view, with neighbours peeking. Prev / next still page one card at a time. Hit <strong>Get code</strong> on the demo for the full snippet.</p>
       <Demo code={MULTICARD_CODE}>
         <Carousel slidesCount={cardSamples.length} label="Featured cards"

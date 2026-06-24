@@ -3,7 +3,7 @@ import { carouselProps } from "../data";
 
 export function Props() {
   return (
-    <Section id="api" num="03 / Carousel" title="Props">
+    <Section id="api" num="08 / Carousel" title="Props">
       <p>Pass these to the <code>&lt;Carousel&gt;</code> root. Every value is also available from the headless <code>useCarousel</code> hook.</p>
       <div className="table-wrap">
         <table>

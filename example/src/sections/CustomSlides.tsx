@@ -6,7 +6,7 @@ import { CUSTOM_SLIDES_CODE } from "../snippets";
 
 export function CustomSlides() {
   return (
-    <Section id="customslides" num="10 / More" title="Custom slides">
+    <Section id="customslides" num="13 / Carousel" title="Custom slides">
       <p>A slide can hold any markup. Here are plain gradient panels driven by the headless <code>Carousel</code> with the full control set — Start / Prev / Play-Pause / Next / End plus dots.</p>
       <Demo code={CUSTOM_SLIDES_CODE}>
         <Carousel slidesCount={scenes.length} loop autoplay autoplayInterval={3800} label="Scenery"

@@ -7,7 +7,7 @@ import { RESPONSIVE_CODE } from "../snippets";
 
 export function Responsive() {
   return (
-    <Section id="responsive" num="13 / New in 2.1" title="Responsive (slidesPerView)">
+    <Section id="responsive" num="11 / Carousel" title="Responsive (slidesPerView)">
       <p className="lead">
         Show several slides at once with <code>slidesPerView</code>, and vary it per
         screen with <code>breakpoints</code>. <strong>Resize the window</strong> — this demo shows

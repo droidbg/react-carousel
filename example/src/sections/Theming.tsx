@@ -5,7 +5,7 @@ import { THEMING_CODE } from "../snippets";
 
 export function Theming() {
   return (
-    <Section id="theming" num="11 / More" title="Theming">
+    <Section id="theming" num="15 / More" title="Theming">
       <p>Override CSS custom properties on <code>.rc-root</code> (or any ancestor). No utility framework, no build step.</p>
       <div className="table-wrap">
         <table>

@@ -73,10 +73,9 @@ export const designs: Design[] = [
 /** Sidebar navigation. Section order on the page follows this list. */
 export const nav: NavGroup[] = [
   { group: "Getting started", items: [["overview", "Overview"], ["install", "Installation"], ["quickstart", "Quick start"]] },
-  { group: "Carousel", items: [["api", "Props"], ["controls", "Controls"], ["patterns", "Patterns"]] },
-  { group: "Presets", items: [["designs", "Card designs"], ["image", "Image slider"], ["slicer", "Slicer slider"], ["cardslider", "CardSlider"]] },
-  { group: "More", items: [["customslides", "Custom slides"], ["theming", "Theming"], ["a11y", "Accessibility"]] },
-  { group: "New in 2.1", items: [["responsive", "Responsive"], ["vertical", "Vertical"], ["control", "Programmatic control"], ["cube", "Cube slider"]] },
+  { group: "Presets", items: [["designs", "Card designs"], ["image", "Image slider"], ["slicer", "Slicer slider"], ["cube", "Cube slider"], ["cardslider", "CardSlider"]] },
+  { group: "Carousel", items: [["api", "Props"], ["controls", "Controls"], ["patterns", "Patterns"], ["responsive", "Responsive"], ["vertical", "Vertical"], ["customslides", "Custom slides"], ["control", "Programmatic control"]] },
+  { group: "More", items: [["theming", "Theming"], ["a11y", "Accessibility"]] },
 ];
 
 /** Flat list of every section id, in page order — used for scroll-spy. */

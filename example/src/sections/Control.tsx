@@ -12,7 +12,7 @@ export function Control() {
   const [status, setStatus] = useState("ready");
 
   return (
-    <Section id="control" num="15 / New in 2.1" title="Programmatic control">
+    <Section id="control" num="14 / Carousel" title="Programmatic control">
       <p className="lead">
         Drive the carousel from outside with a <code>ref</code> (the imperative
         <code>CarouselHandle</code>), and react to lifecycle callbacks like

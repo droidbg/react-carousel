@@ -8,7 +8,7 @@ import type { CSSProperties } from "react";
 
 export function Vertical() {
   return (
-    <Section id="vertical" num="14 / New in 2.1" title="Vertical">
+    <Section id="vertical" num="12 / Carousel" title="Vertical">
       <p className="lead">
         Set <code>orientation="vertical"</code> and give the viewport a height with
         <code>--rc-viewport-height</code>. Keyboard (↑/↓) and swipe follow the axis automatically.

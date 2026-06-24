@@ -10,6 +10,8 @@ export { default as ImageSlider } from "./ImageSlider";
 export type { ImageSliderProps, ImageSlide } from "./ImageSlider";
 export { default as SlicerSlider } from "./SlicerSlider";
 export type { SlicerSliderProps, SlicerSlide } from "./SlicerSlider";
+export { default as CubeSlider } from "./CubeSlider";
+export type { CubeSliderProps, CubeSlide } from "./CubeSlider";
 export { default as Card } from "./Card";
 export type { CardProps, CardVariant } from "./Card";
 export { default as Blobs } from "./Blobs";

@@ -87,6 +87,7 @@ export default function App() {
 | `CardSlider`               | Decorated card row with six design variants.                |
 | `ImageSlider`              | Full-bleed image carousel with caption + overlaid controls. |
 | `SlicerSlider`             | Staggered horizontal-slice wipe transition.                 |
+| `CubeSlider`               | 3D cube rotation between image slides (horizontal/vertical).|
 
 Checkout Full API, theming, accessibility notes, and live demos: **<https://react-carousel-latest.vercel.app/>**
 

@@ -452,3 +452,136 @@
   }
 }
 
+/* ===================== CubeSlider preset ===================== */
+.rc-cube {
+  position: relative;
+  height: var(--rc-image-height, 460px);
+  border-radius: 16px;
+  background: #000;
+  outline: none;
+  --rc-button-bg: transparent;
+  --rc-button-bg-hover: rgba(255, 255, 255, 0.18);
+  --rc-button-color: #fff;
+  --rc-button-size: 3rem;
+  --rc-cube-depth: 0px;
+  --rc-cube-duration: 600ms;
+}
+.rc-cube:focus-visible {
+  outline: 2px solid var(--rc-accent, #fff);
+  outline-offset: 2px;
+}
+.rc-cube .rc-button {
+  z-index: 3;
+  font-size: 1.6rem;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.55));
+}
+
+/* Perspective host. touch-action frees the page to scroll on the cross axis. */
+.rc-cube__viewport {
+  position: absolute;
+  inset: 0;
+  perspective: 1200px;
+  touch-action: pan-y;
+}
+.rc-cube[data-orientation="vertical"] .rc-cube__viewport {
+  touch-action: pan-x;
+}
+
+/*
+ * The 3D context. Pulled back by one depth so the active face (which is pushed
+ * forward by the same depth) lands flush in the viewport plane.
+ */
+.rc-cube__cage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--rc-cube-depth) * -1));
+}
+
+/*
+ * Each face sits at `rotate(offset · 90°) translateZ(depth)`. All faces share
+ * one transition, so when the active index changes every offset shifts by one
+ * and the faces orbit together — a rigid 90° cube turn. Direction falls out of
+ * the offset's sign, so no prev-index bookkeeping is needed.
+ */
+.rc-cube__face {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(calc(var(--off) * 90deg)) translateZ(var(--rc-cube-depth));
+  transition: transform var(--rc-cube-duration) cubic-bezier(0.66, 0, 0.34, 1);
+}
+.rc-cube[data-orientation="vertical"] .rc-cube__face {
+  transform: rotateX(calc(var(--off) * -90deg)) translateZ(var(--rc-cube-depth));
+}
+
+/* Subtle depth: darken the side faces, fading to clear on the active one. */
+.rc-cube[data-shadow] .rc-cube__face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #000;
+  opacity: 0.5;
+  transition: opacity var(--rc-cube-duration) ease;
+  pointer-events: none;
+}
+.rc-cube[data-shadow] .rc-cube__face[data-active]::after {
+  opacity: 0;
+}
+
+/* Soft ground shadow under the cube. */
+.rc-cube__shadow {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -7%;
+  height: 16%;
+  background: rgba(0, 0, 0, 0.45);
+  filter: blur(22px);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.rc-cube__caption {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  color: #fff;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+.rc-cube .rc-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.9rem;
+  margin: 0;
+  z-index: 3;
+}
+.rc-cube .rc-dot {
+  background: rgba(255, 255, 255, 0.45);
+}
+.rc-cube .rc-dot--active {
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-cube__face {
+    transition-duration: 1ms;
+  }
+}
+
